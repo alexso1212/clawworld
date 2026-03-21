@@ -31,6 +31,21 @@ function describeSnapshot(snapshot: SceneSnapshot) {
 }
 
 function MarkerTag({ marker }: { marker: SceneMarker }) {
+  if (marker.interactive && marker.labelMode === 'hover') {
+    return (
+      <button
+        aria-label={marker.label}
+        className={`scene-marker scene-marker--${marker.variant} scene-marker--hover`}
+        style={{ left: `${marker.x}%`, top: `${marker.y}%` }}
+        type="button"
+        onClick={() => marker.onSelect?.(marker.id)}
+      >
+        <span aria-hidden="true" className="scene-marker__icon" />
+        <span className="scene-marker__tooltip">{marker.label}</span>
+      </button>
+    )
+  }
+
   if (marker.interactive) {
     return (
       <button

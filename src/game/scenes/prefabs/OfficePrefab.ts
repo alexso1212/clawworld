@@ -49,6 +49,7 @@ export class OfficePrefab {
           y: 18,
           variant: 'surface',
           interactive: true,
+          labelMode: 'hover',
         },
         {
           id: 'boss-whiteboard',
@@ -57,6 +58,7 @@ export class OfficePrefab {
           y: 17,
           variant: 'surface',
           interactive: true,
+          labelMode: 'hover',
         },
         {
           id: 'portal-website-refresh',
@@ -65,6 +67,7 @@ export class OfficePrefab {
           y: 57,
           variant: 'surface',
           interactive: true,
+          labelMode: 'hover',
         },
       ],
     }

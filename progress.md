@@ -29,11 +29,13 @@ Completed:
 - Commissioned Gemini Ultra for a dedicated task-world art-direction brief and saved it as `docs/2026-03-22-task-world-art-direction.md`
 - Rebuilt the task world from a dark dashboard into a warmer project war-room layout with room-specific props
 - Removed worker name placards from the task-world runtime snapshot so the scene reads more like a room and less like a personnel chart
+- Switched office and task-world labels to hotspot-style hover/click reveals instead of always-on text
+- Upgraded worker sprites from simple head/body blocks to clearer office-character silhouettes with shadow, tie, legs, and briefcase accents
 
 TODO:
 - Route the next major art-direction pass through Gemini Ultra before reworking the task world or any new scene
 - Push the main office further toward a true pixel-lobby feel with more prop detail and less schematic spacing
-- Add selective hover/focus labels so more interaction text can stay hidden until needed
+- Push more functions into object affordances so even fewer hotspots need visible icons
 - Commission the three concept images from Gemini before visual refactor work starts
 - Expand live session hydration beyond the current session-list heuristic layer
 - Add richer task-world details for real sessions (preview, phase inference, per-task drilldown)

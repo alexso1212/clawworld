@@ -7,6 +7,7 @@ export type SceneMarker = {
   y: number
   variant: SceneMarkerVariant
   interactive?: boolean
+  labelMode?: 'always' | 'hover'
   onSelect?: (id: string) => void
 }
 

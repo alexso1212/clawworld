@@ -118,6 +118,30 @@ select {
   pointer-events: none;
 }
 
+.scene-marker__icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: currentColor;
+  box-shadow: inset 0 0 0 2px rgba(255, 248, 238, 0.32);
+}
+
+.scene-marker__tooltip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translate(-50%, -100%);
+  white-space: nowrap;
+  border-radius: 4px;
+  padding: 0.18rem 0.5rem;
+  border: 2px solid rgba(73, 60, 41, 0.18);
+  background: rgba(255, 249, 240, 0.96);
+  box-shadow: 3px 3px 0 rgba(78, 63, 42, 0.12);
+  color: #2e3642;
+}
+
 .scene-marker--title {
   background: rgba(208, 100, 63, 0.12);
   color: #934527;
@@ -151,6 +175,30 @@ select {
 .scene-marker[type='button'] {
   cursor: pointer;
   pointer-events: auto;
+}
+
+.scene-marker--hover {
+  min-width: 18px;
+  min-height: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: #2a7b74;
+}
+
+.scene-marker--hover.scene-marker--delivery {
+  color: #d0643f;
+}
+
+.scene-marker--hover .scene-marker__icon {
+  opacity: 0.82;
+}
+
+.scene-marker--hover:hover .scene-marker__tooltip,
+.scene-marker--hover:focus-visible .scene-marker__tooltip,
+.scene-marker--hover:active .scene-marker__tooltip {
+  display: block;
 }
 
 .scene-marker[type='button']:hover {
