@@ -3,6 +3,7 @@ import type { ClawworldRuntimeSession } from '../../adapters/openclaw/types'
 import type { SceneBridge } from '../engine/sceneBridge'
 import { TaskRoomPrefab } from './prefabs/TaskRoomPrefab'
 import { WorkerPrefab } from './prefabs/WorkerPrefab'
+import { withInteractiveHotspot } from './prefabs/artDirection'
 
 type WorkerTrack = {
   id: string
@@ -15,6 +16,9 @@ type WorkerTrack = {
   locationId: string
   arrived: boolean
 }
+
+const SCENE_WIDTH = 1280
+const SCENE_HEIGHT = 720
 
 export class TaskWorldScene extends Phaser.Scene {
   private readonly bridge: SceneBridge
@@ -263,78 +267,94 @@ export class TaskWorldScene extends Phaser.Scene {
       portals: ['return-main-office'],
       markers: [
         { id: 'task-world-title', label: this.runtimeSession.title, x: 15, y: 9, variant: 'title' },
-        {
+        withInteractiveHotspot(
+          {
           id: 'return-main-office',
           label: 'Return to Main Office',
           x: 84,
           y: 10,
           variant: 'surface',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-reception',
           label: 'Reception',
           x: 18,
           y: 28,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-dispatch',
           label: 'Amane Desk',
           x: 40,
           y: 28,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-requirements',
           label: 'Requirements Room',
           x: 61,
           y: 28,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-planning',
           label: 'Planning Room',
           x: 83,
           y: 28,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-execution',
           label: 'Execution Workshop',
           x: 27,
           y: 63,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-review',
           label: 'Review Checkpoint',
           x: 55,
           y: 63,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'task-room-memory',
           label: 'Memory Archive',
           x: 80,
           y: 63,
           variant: 'room',
-          interactive: true,
-          labelMode: 'hover',
-        },
+          },
+          SCENE_WIDTH,
+          SCENE_HEIGHT,
+        ),
         ...(this.deliveryVisible
           ? [
               {

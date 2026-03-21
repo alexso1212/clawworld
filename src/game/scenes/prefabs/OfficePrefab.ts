@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import type { SceneSnapshot } from '../../engine/sceneBridge'
+import { withInteractiveHotspot } from './artDirection'
 
 const OFFICE_WIDTH = 1280
 const OFFICE_HEIGHT = 720
@@ -42,33 +43,39 @@ export class OfficePrefab {
       ],
       portals: ['portal-website-refresh'],
       markers: [
-        {
+        withInteractiveHotspot(
+          {
           id: 'meeting-whiteboard',
           label: 'Meeting Room Whiteboard',
           x: 68,
           y: 18,
           variant: 'surface',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          OFFICE_WIDTH,
+          OFFICE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'boss-whiteboard',
           label: 'Boss Office Whiteboard',
           x: 84,
           y: 17,
           variant: 'surface',
-          interactive: true,
-          labelMode: 'hover',
-        },
-        {
+          },
+          OFFICE_WIDTH,
+          OFFICE_HEIGHT,
+        ),
+        withInteractiveHotspot(
+          {
           id: 'portal-website-refresh',
           label: 'Task Board',
           x: 19,
           y: 57,
           variant: 'surface',
-          interactive: true,
-          labelMode: 'hover',
-        },
+          },
+          OFFICE_WIDTH,
+          OFFICE_HEIGHT,
+        ),
       ],
     }
   }
@@ -184,13 +191,26 @@ export class OfficePrefab {
     graphics.strokeRoundedRect(748, 180, 214, 148, 4)
 
     graphics.fillStyle(0xfafdff, 1)
-    graphics.fillRoundedRect(782, 208, 128, 64, 2)
-    graphics.lineStyle(4, 0xd0643f, 0.92)
-    graphics.lineBetween(798, 240, 878, 240)
-    graphics.lineBetween(882, 240, 904, 224)
-    graphics.lineStyle(3, 0xc8b14f, 0.9)
-    graphics.strokeRoundedRect(894, 210, 28, 24, 2)
-    graphics.strokeRoundedRect(902, 244, 28, 24, 2)
+    graphics.fillRect(782, 208, 130, 66)
+    graphics.fillStyle(0xd5e3de, 1)
+    graphics.fillRect(778, 274, 138, 8)
+    graphics.fillRect(792, 282, 10, 18)
+    graphics.fillRect(892, 282, 10, 18)
+    graphics.fillStyle(0xd0643f, 1)
+    graphics.fillRect(796, 236, 68, 4)
+    graphics.fillRect(866, 236, 28, 4)
+    graphics.fillRect(890, 228, 4, 12)
+    graphics.fillStyle(0x2a7b74, 0.92)
+    graphics.fillRect(812, 220, 4, 28)
+    graphics.fillRect(820, 228, 28, 4)
+    graphics.fillStyle(0xc8b14f, 0.95)
+    graphics.fillRect(918, 212, 10, 22)
+    graphics.fillRect(930, 214, 6, 18)
+    graphics.fillRect(916, 246, 10, 22)
+    graphics.fillRect(928, 248, 6, 18)
+    graphics.fillStyle(0xe7c590, 1)
+    graphics.fillRect(766, 286, 20, 12)
+    graphics.fillRect(922, 286, 20, 12)
   }
 
   private drawBossOffice() {
@@ -200,12 +220,22 @@ export class OfficePrefab {
     graphics.fillRoundedRect(974, 182, 150, 136, 4)
     graphics.fillStyle(0xd7c5ab, 0.65)
     graphics.fillRoundedRect(986, 194, 126, 112, 2)
-    graphics.fillStyle(0xffffff, 1)
-    graphics.fillRoundedRect(1014, 218, 82, 46, 2)
+    graphics.fillStyle(0x8d6748, 1)
+    graphics.fillRect(1008, 212, 94, 58)
+    graphics.fillStyle(0xfffcf4, 1)
+    graphics.fillRect(1014, 218, 82, 46)
+    graphics.fillStyle(0xf2c763, 1)
+    graphics.fillRect(1024, 228, 18, 4)
+    graphics.fillRect(1048, 228, 12, 4)
+    graphics.fillRect(1028, 240, 44, 4)
+    graphics.fillRect(1048, 248, 28, 4)
     graphics.fillStyle(0x243142, 0.92)
-    graphics.fillRoundedRect(1000, 274, 112, 14, 2)
+    graphics.fillRect(998, 276, 112, 14)
     graphics.fillStyle(0x89b481, 1)
-    graphics.fillRoundedRect(989, 282, 12, 18, 2)
+    graphics.fillRect(986, 280, 14, 22)
+    graphics.fillStyle(0x243142, 1)
+    graphics.fillRect(1096, 208, 8, 40)
+    graphics.fillRect(1088, 244, 24, 8)
   }
 
   private drawDeskField() {
@@ -245,19 +275,30 @@ export class OfficePrefab {
   private drawTaskBoard() {
     const graphics = this.scene.add.graphics()
 
-    graphics.fillStyle(0xffefbf, 0.95)
-    graphics.fillRoundedRect(140, 462, 246, 120, 3)
-    graphics.fillStyle(0xf9e4a3, 1)
-    graphics.fillRoundedRect(154, 474, 216, 16, 2)
+    graphics.fillStyle(0x8a643f, 1)
+    graphics.fillRect(136, 458, 254, 128)
+    graphics.fillStyle(0xffefbf, 0.98)
+    graphics.fillRect(144, 466, 238, 112)
+    graphics.fillStyle(0xf7d78e, 1)
+    graphics.fillRect(158, 476, 210, 10)
     graphics.fillStyle(0xf6ce62, 1)
-    graphics.fillRoundedRect(170, 506, 34, 26, 2)
+    graphics.fillRect(166, 500, 30, 22)
     graphics.fillStyle(0xf0a167, 1)
-    graphics.fillRoundedRect(214, 506, 34, 26, 2)
+    graphics.fillRect(206, 504, 34, 28)
     graphics.fillStyle(0xd0643f, 1)
-    graphics.fillRoundedRect(258, 506, 34, 26, 2)
+    graphics.fillRect(248, 500, 38, 24)
+    graphics.fillStyle(0x8bc7be, 1)
+    graphics.fillRect(294, 506, 30, 26)
+    graphics.fillStyle(0xf7f1dd, 1)
+    graphics.fillRect(332, 502, 24, 18)
+    graphics.fillRect(162, 536, 20, 16)
+    graphics.fillRect(188, 542, 28, 12)
+    graphics.fillRect(226, 538, 24, 14)
+    graphics.fillRect(258, 536, 34, 16)
     graphics.fillStyle(0x7f6f59, 1)
-    graphics.fillRoundedRect(310, 510, 26, 6, 1)
-    graphics.fillRoundedRect(310, 522, 40, 6, 1)
+    graphics.fillRect(314, 508, 18, 4)
+    graphics.fillRect(314, 518, 40, 4)
+    graphics.fillRect(314, 528, 28, 4)
   }
 
   private drawTeaBar() {
@@ -285,25 +326,40 @@ export class OfficePrefab {
     graphics.fillStyle(0xf1c96f, 0.46)
     graphics.fillRoundedRect(760, 566, 286, 26, 2)
     graphics.fillStyle(0xf4ecdf, 1)
-    graphics.fillRoundedRect(778, 492, 68, 38, 2)
-    graphics.fillStyle(0x50a864, 1)
-    graphics.fillCircle(834, 510, 6)
-    graphics.fillStyle(0xdbefe8, 1)
-    graphics.fillRoundedRect(872, 484, 108, 46, 2)
-    graphics.fillStyle(0x18293a, 1)
-    graphics.fillRoundedRect(998, 474, 38, 62, 2)
-    graphics.fillStyle(0x50a864, 1)
-    graphics.fillCircle(1010, 492, 4)
-    graphics.fillStyle(0xf4c34f, 1)
-    graphics.fillCircle(1022, 492, 4)
+    graphics.fillRect(776, 486, 74, 48)
+    graphics.fillStyle(0xa57b4e, 1)
+    graphics.fillRect(786, 498, 16, 18)
+    graphics.fillRect(808, 494, 28, 24)
     graphics.fillStyle(0xd0643f, 1)
-    graphics.fillCircle(1034, 492, 4)
+    graphics.fillRect(838, 488, 8, 8)
+    graphics.fillStyle(0xdbefe8, 1)
+    graphics.fillRect(872, 480, 112, 50)
+    graphics.fillStyle(0x8bb8d9, 1)
+    graphics.fillRect(884, 492, 24, 14)
+    graphics.fillRect(916, 492, 24, 14)
+    graphics.fillStyle(0x527d96, 1)
+    graphics.fillRect(886, 514, 26, 6)
+    graphics.fillRect(920, 514, 18, 6)
+    graphics.fillStyle(0x18293a, 1)
+    graphics.fillRect(994, 474, 44, 64)
+    graphics.fillStyle(0x50a864, 1)
+    graphics.fillRect(1002, 486, 6, 6)
+    graphics.fillStyle(0xf4c34f, 1)
+    graphics.fillRect(1014, 486, 6, 6)
+    graphics.fillStyle(0xd0643f, 1)
+    graphics.fillRect(1026, 486, 6, 6)
     graphics.fillStyle(0xf7eddc, 1)
-    graphics.fillRoundedRect(1080, 212, 50, 276, 2)
+    graphics.fillRect(1078, 210, 56, 280)
     graphics.fillStyle(0xcfb384, 1)
-    for (let y = 228; y <= 468; y += 48) {
-      graphics.fillRoundedRect(1088, y, 34, 10, 1)
+    for (let y = 226; y <= 466; y += 46) {
+      graphics.fillRect(1086, y, 40, 10)
+      graphics.fillStyle(0xfaf1df, 1)
+      graphics.fillRect(1090, y + 2, 6, 6)
+      graphics.fillStyle(0xcfb384, 1)
     }
+    graphics.fillStyle(0x4b6874, 1)
+    graphics.fillRect(1116, 492, 10, 24)
+    graphics.fillRect(1110, 500, 22, 6)
   }
 
   private drawLivingProps() {
@@ -333,13 +389,16 @@ export class OfficePrefab {
   private drawMountedDisplay() {
     const graphics = this.scene.add.graphics()
     graphics.fillStyle(0x1d2430, 1)
-    graphics.fillRoundedRect(676, 92, 206, 72, 3)
-    graphics.lineStyle(2, 0x8ad4e1, 0.75)
-    graphics.strokeRoundedRect(676, 92, 206, 72, 3)
-    graphics.lineBetween(706, 124, 832, 124)
-    graphics.lineBetween(706, 140, 784, 140)
+    graphics.fillRect(674, 90, 212, 76)
+    graphics.fillStyle(0x203449, 1)
+    graphics.fillRect(682, 98, 196, 60)
+    graphics.fillStyle(0x8ad4e1, 0.75)
+    graphics.fillRect(708, 122, 126, 4)
+    graphics.fillRect(708, 138, 80, 4)
     graphics.fillStyle(0xd0643f, 1)
-    graphics.fillCircle(860, 118, 6)
+    graphics.fillRect(856, 114, 10, 10)
+    graphics.fillStyle(0x4a5968, 1)
+    graphics.fillRect(760, 166, 40, 8)
   }
 
   private drawAmbientStrip() {

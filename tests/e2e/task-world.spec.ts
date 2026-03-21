@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test'
 test('opens a task world and shows the seven core rooms', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Task Board' }).click()
+  await page.mouse.move(8, 8)
 
   await expect(page.getByText('Reception')).toBeHidden()
   await expect(page.getByText('Amane Desk')).toBeHidden()
@@ -22,6 +23,11 @@ test('opens a task world and shows the seven core rooms', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Execution Workshop' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Review Checkpoint' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Memory Archive' })).toBeVisible()
+
+  const receptionHitArea = await page.getByRole('button', { name: 'Reception' }).boundingBox()
+  expect(receptionHitArea?.width ?? 0).toBeGreaterThan(100)
+  expect(receptionHitArea?.height ?? 0).toBeGreaterThan(55)
+
   await page.getByRole('button', { name: 'Reception' }).hover()
   await expect(page.getByText('Reception')).toBeVisible()
 

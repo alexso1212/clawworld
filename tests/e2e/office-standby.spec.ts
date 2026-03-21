@@ -17,6 +17,16 @@ test('shows the office standby scene with desks, finance room, and wall display'
   await expect(page.getByRole('button', { name: 'Task Board' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Meeting Room Whiteboard' })).toBeVisible()
 
+  const taskBoardHitArea = await page.getByRole('button', { name: 'Task Board' }).boundingBox()
+  expect(taskBoardHitArea?.width ?? 0).toBeGreaterThan(90)
+  expect(taskBoardHitArea?.height ?? 0).toBeGreaterThan(50)
+
+  const meetingBoardHitArea = await page
+    .getByRole('button', { name: 'Meeting Room Whiteboard' })
+    .boundingBox()
+  expect(meetingBoardHitArea?.width ?? 0).toBeGreaterThan(60)
+  expect(meetingBoardHitArea?.height ?? 0).toBeGreaterThan(40)
+
   await page.getByRole('button', { name: 'Task Board' }).hover()
   await expect(page.getByText('Task Board')).toBeVisible()
 

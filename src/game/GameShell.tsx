@@ -31,16 +31,22 @@ function describeSnapshot(snapshot: SceneSnapshot) {
 }
 
 function MarkerTag({ marker }: { marker: SceneMarker }) {
+  const markerStyle = {
+    left: `${marker.x}%`,
+    top: `${marker.y}%`,
+    ...(marker.width ? { width: `${marker.width}%` } : {}),
+    ...(marker.height ? { height: `${marker.height}%` } : {}),
+  }
+
   if (marker.interactive && marker.labelMode === 'hover') {
     return (
       <button
         aria-label={marker.label}
         className={`scene-marker scene-marker--${marker.variant} scene-marker--hover`}
-        style={{ left: `${marker.x}%`, top: `${marker.y}%` }}
+        style={markerStyle}
         type="button"
         onClick={() => marker.onSelect?.(marker.id)}
       >
-        <span aria-hidden="true" className="scene-marker__icon" />
         <span className="scene-marker__tooltip">{marker.label}</span>
       </button>
     )
@@ -50,7 +56,7 @@ function MarkerTag({ marker }: { marker: SceneMarker }) {
     return (
       <button
         className={`scene-marker scene-marker--${marker.variant}`}
-        style={{ left: `${marker.x}%`, top: `${marker.y}%` }}
+        style={markerStyle}
         type="button"
         onClick={() => marker.onSelect?.(marker.id)}
       >
@@ -62,7 +68,7 @@ function MarkerTag({ marker }: { marker: SceneMarker }) {
   return (
     <div
       className={`scene-marker scene-marker--${marker.variant}`}
-      style={{ left: `${marker.x}%`, top: `${marker.y}%` }}
+      style={markerStyle}
     >
       {marker.label}
     </div>

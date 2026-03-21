@@ -27,15 +27,19 @@ Completed:
 - Removed the redundant in-scene “Main Office” marker from the runtime snapshot
 - Added more lived-in lobby props and trim so the main office reads more like a staffed lounge instead of a schematic floorplan
 - Commissioned Gemini Ultra for a dedicated task-world art-direction brief and saved it as `docs/2026-03-22-task-world-art-direction.md`
+- Commissioned Gemini Ultra for a dedicated sprite-and-object direction brief and saved it as `docs/2026-03-22-sprite-direction.md`
 - Rebuilt the task world from a dark dashboard into a warmer project war-room layout with room-specific props
 - Removed worker name placards from the task-world runtime snapshot so the scene reads more like a room and less like a personnel chart
 - Switched office and task-world labels to hotspot-style hover/click reveals instead of always-on text
-- Upgraded worker sprites from simple head/body blocks to clearer office-character silhouettes with shadow, tie, legs, and briefcase accents
+- Upgraded worker sprites from simple head/body blocks to clearer office-character silhouettes with shadow, role-specific props, and stronger pixel-like outlines
+- Expanded whiteboard, task-board, and room hotspots into object-sized invisible hit areas so furniture can be clicked directly instead of relying on pin-sized placards
+- Reworked the main-office boards, finance/tool area, and task-room furniture into more recognizable pixel-office silhouettes instead of rounded dashboard cards
 
 TODO:
 - Route the next major art-direction pass through Gemini Ultra before reworking the task world or any new scene
-- Push the main office further toward a true pixel-lobby feel with more prop detail and less schematic spacing
-- Push more functions into object affordances so even fewer hotspots need visible icons
+- Push the main office further toward a true pixel-lobby feel with richer shading and less washed-out negative space
+- Replace the current vector-built props with real sprite sheets / atlas pieces once the silhouettes are locked
+- Push more functions into object affordances so even the remaining hover outlines can get subtler
 - Commission the three concept images from Gemini before visual refactor work starts
 - Expand live session hydration beyond the current session-list heuristic layer
 - Add richer task-world details for real sessions (preview, phase inference, per-task drilldown)
