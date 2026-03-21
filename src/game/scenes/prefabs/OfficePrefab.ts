@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 import type { SceneSnapshot } from '../../engine/sceneBridge'
 import { withInteractiveHotspot } from './artDirection'
+import { getFurnitureSpriteSpec } from './pixelSpriteCatalog'
+import { ensurePixelSpriteTextures } from './pixelTextureFactory'
 
 const OFFICE_WIDTH = 1280
 const OFFICE_HEIGHT = 720
@@ -15,6 +17,7 @@ export class OfficePrefab {
   }
 
   build(): SceneSnapshot {
+    ensurePixelSpriteTextures(this.scene)
     this.drawBackdrop()
     this.drawHallShell()
     this.drawLobbyTrim()
@@ -190,27 +193,7 @@ export class OfficePrefab {
     graphics.lineStyle(3, 0x2a7b74, 0.85)
     graphics.strokeRoundedRect(748, 180, 214, 148, 4)
 
-    graphics.fillStyle(0xfafdff, 1)
-    graphics.fillRect(782, 208, 130, 66)
-    graphics.fillStyle(0xd5e3de, 1)
-    graphics.fillRect(778, 274, 138, 8)
-    graphics.fillRect(792, 282, 10, 18)
-    graphics.fillRect(892, 282, 10, 18)
-    graphics.fillStyle(0xd0643f, 1)
-    graphics.fillRect(796, 236, 68, 4)
-    graphics.fillRect(866, 236, 28, 4)
-    graphics.fillRect(890, 228, 4, 12)
-    graphics.fillStyle(0x2a7b74, 0.92)
-    graphics.fillRect(812, 220, 4, 28)
-    graphics.fillRect(820, 228, 28, 4)
-    graphics.fillStyle(0xc8b14f, 0.95)
-    graphics.fillRect(918, 212, 10, 22)
-    graphics.fillRect(930, 214, 6, 18)
-    graphics.fillRect(916, 246, 10, 22)
-    graphics.fillRect(928, 248, 6, 18)
-    graphics.fillStyle(0xe7c590, 1)
-    graphics.fillRect(766, 286, 20, 12)
-    graphics.fillRect(922, 286, 20, 12)
+    this.placeFurniture('meeting-whiteboard', 'active', 848, 302, 3)
   }
 
   private drawBossOffice() {
@@ -220,22 +203,7 @@ export class OfficePrefab {
     graphics.fillRoundedRect(974, 182, 150, 136, 4)
     graphics.fillStyle(0xd7c5ab, 0.65)
     graphics.fillRoundedRect(986, 194, 126, 112, 2)
-    graphics.fillStyle(0x8d6748, 1)
-    graphics.fillRect(1008, 212, 94, 58)
-    graphics.fillStyle(0xfffcf4, 1)
-    graphics.fillRect(1014, 218, 82, 46)
-    graphics.fillStyle(0xf2c763, 1)
-    graphics.fillRect(1024, 228, 18, 4)
-    graphics.fillRect(1048, 228, 12, 4)
-    graphics.fillRect(1028, 240, 44, 4)
-    graphics.fillRect(1048, 248, 28, 4)
-    graphics.fillStyle(0x243142, 0.92)
-    graphics.fillRect(998, 276, 112, 14)
-    graphics.fillStyle(0x89b481, 1)
-    graphics.fillRect(986, 280, 14, 22)
-    graphics.fillStyle(0x243142, 1)
-    graphics.fillRect(1096, 208, 8, 40)
-    graphics.fillRect(1088, 244, 24, 8)
+    this.placeFurniture('boss-whiteboard', 'active', 1049, 308, 3)
   }
 
   private drawDeskField() {
@@ -246,9 +214,6 @@ export class OfficePrefab {
     graphics.fillStyle(0xb9d8d3, 0.3)
     graphics.fillRoundedRect(842, 374, 248, 132, 2)
 
-    const deskColor = 0xeadcc8
-    const chairColor = 0xf2b874
-    const monitorColor = 0x98d5e8
     const startX = 860
     const startY = 394
 
@@ -256,12 +221,7 @@ export class OfficePrefab {
       for (let column = 0; column < 3; column += 1) {
         const x = startX + column * 78
         const y = startY + row * 58
-        graphics.fillStyle(deskColor, 1)
-        graphics.fillRoundedRect(x, y, 58, 26, 2)
-        graphics.fillStyle(monitorColor, 1)
-        graphics.fillRoundedRect(x + 10, y - 14, 38, 16, 2)
-        graphics.fillStyle(chairColor, 0.88)
-        graphics.fillRoundedRect(x + 16, y + 32, 22, 12, 2)
+        this.placeFurniture('desk-cluster', row === 0 ? 'busy' : 'idle', x + 29, y + 48, 2)
       }
     }
 
@@ -275,30 +235,9 @@ export class OfficePrefab {
   private drawTaskBoard() {
     const graphics = this.scene.add.graphics()
 
-    graphics.fillStyle(0x8a643f, 1)
-    graphics.fillRect(136, 458, 254, 128)
-    graphics.fillStyle(0xffefbf, 0.98)
-    graphics.fillRect(144, 466, 238, 112)
-    graphics.fillStyle(0xf7d78e, 1)
-    graphics.fillRect(158, 476, 210, 10)
-    graphics.fillStyle(0xf6ce62, 1)
-    graphics.fillRect(166, 500, 30, 22)
-    graphics.fillStyle(0xf0a167, 1)
-    graphics.fillRect(206, 504, 34, 28)
-    graphics.fillStyle(0xd0643f, 1)
-    graphics.fillRect(248, 500, 38, 24)
-    graphics.fillStyle(0x8bc7be, 1)
-    graphics.fillRect(294, 506, 30, 26)
-    graphics.fillStyle(0xf7f1dd, 1)
-    graphics.fillRect(332, 502, 24, 18)
-    graphics.fillRect(162, 536, 20, 16)
-    graphics.fillRect(188, 542, 28, 12)
-    graphics.fillRect(226, 538, 24, 14)
-    graphics.fillRect(258, 536, 34, 16)
-    graphics.fillStyle(0x7f6f59, 1)
-    graphics.fillRect(314, 508, 18, 4)
-    graphics.fillRect(314, 518, 40, 4)
-    graphics.fillRect(314, 528, 28, 4)
+    graphics.fillStyle(0xd8c29a, 0.22)
+    graphics.fillRoundedRect(148, 472, 226, 106, 4)
+    this.placeFurniture('task-board', 'busy', 264, 578, 3)
   }
 
   private drawTeaBar() {
@@ -306,16 +245,7 @@ export class OfficePrefab {
 
     graphics.fillStyle(0xeedec8, 1)
     graphics.fillRoundedRect(456, 496, 232, 98, 3)
-    graphics.fillStyle(0xf6ebdc, 1)
-    graphics.fillRoundedRect(474, 506, 194, 18, 2)
-    graphics.fillStyle(0xd7bea0, 1)
-    graphics.fillRoundedRect(492, 536, 164, 18, 2)
-    graphics.fillStyle(0xfff7ed, 1)
-    graphics.fillCircle(524, 528, 12)
-    graphics.fillStyle(0x243142, 0.9)
-    graphics.fillRoundedRect(628, 516, 22, 34, 2)
-    graphics.fillStyle(0x89b481, 1)
-    graphics.fillRoundedRect(650, 510, 14, 18, 2)
+    this.placeFurniture('tea-bar', 'steaming', 572, 588, 3)
   }
 
   private drawSupportHall() {
@@ -325,41 +255,9 @@ export class OfficePrefab {
     graphics.fillRoundedRect(736, 534, 334, 92, 3)
     graphics.fillStyle(0xf1c96f, 0.46)
     graphics.fillRoundedRect(760, 566, 286, 26, 2)
-    graphics.fillStyle(0xf4ecdf, 1)
-    graphics.fillRect(776, 486, 74, 48)
-    graphics.fillStyle(0xa57b4e, 1)
-    graphics.fillRect(786, 498, 16, 18)
-    graphics.fillRect(808, 494, 28, 24)
-    graphics.fillStyle(0xd0643f, 1)
-    graphics.fillRect(838, 488, 8, 8)
-    graphics.fillStyle(0xdbefe8, 1)
-    graphics.fillRect(872, 480, 112, 50)
-    graphics.fillStyle(0x8bb8d9, 1)
-    graphics.fillRect(884, 492, 24, 14)
-    graphics.fillRect(916, 492, 24, 14)
-    graphics.fillStyle(0x527d96, 1)
-    graphics.fillRect(886, 514, 26, 6)
-    graphics.fillRect(920, 514, 18, 6)
-    graphics.fillStyle(0x18293a, 1)
-    graphics.fillRect(994, 474, 44, 64)
-    graphics.fillStyle(0x50a864, 1)
-    graphics.fillRect(1002, 486, 6, 6)
-    graphics.fillStyle(0xf4c34f, 1)
-    graphics.fillRect(1014, 486, 6, 6)
-    graphics.fillStyle(0xd0643f, 1)
-    graphics.fillRect(1026, 486, 6, 6)
-    graphics.fillStyle(0xf7eddc, 1)
-    graphics.fillRect(1078, 210, 56, 280)
-    graphics.fillStyle(0xcfb384, 1)
-    for (let y = 226; y <= 466; y += 46) {
-      graphics.fillRect(1086, y, 40, 10)
-      graphics.fillStyle(0xfaf1df, 1)
-      graphics.fillRect(1090, y + 2, 6, 6)
-      graphics.fillStyle(0xcfb384, 1)
-    }
-    graphics.fillStyle(0x4b6874, 1)
-    graphics.fillRect(1116, 492, 10, 24)
-    graphics.fillRect(1110, 500, 22, 6)
+    this.placeFurniture('finance-safe', 'warning', 814, 536, 2)
+    this.placeFurniture('tool-locker', 'open', 926, 576, 2)
+    this.placeFurniture('archive-cabinet', 'closed', 1110, 494, 2)
   }
 
   private drawLivingProps() {
@@ -399,6 +297,28 @@ export class OfficePrefab {
     graphics.fillRect(856, 114, 10, 10)
     graphics.fillStyle(0x4a5968, 1)
     graphics.fillRect(760, 166, 40, 8)
+  }
+
+  private placeFurniture(
+    id:
+      | 'task-board'
+      | 'meeting-whiteboard'
+      | 'boss-whiteboard'
+      | 'desk-cluster'
+      | 'archive-cabinet'
+      | 'tea-bar'
+      | 'finance-safe'
+      | 'tool-locker',
+    frame: string,
+    x: number,
+    y: number,
+    scale: number,
+  ) {
+    const spec = getFurnitureSpriteSpec(id)
+    const sprite = this.scene.add.image(x, y, `${spec.key}-${frame}`)
+    sprite.setOrigin(0.5, 1)
+    sprite.setScale(scale)
+    sprite.setDepth(y)
   }
 
   private drawAmbientStrip() {

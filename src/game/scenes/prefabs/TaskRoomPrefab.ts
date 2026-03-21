@@ -1,4 +1,6 @@
 import Phaser from 'phaser'
+import { getFurnitureSpriteSpec } from './pixelSpriteCatalog'
+import { ensurePixelSpriteTextures } from './pixelTextureFactory'
 
 type TaskRoomStyle = {
   shell: number
@@ -42,6 +44,7 @@ export class TaskRoomPrefab {
   }
 
   draw() {
+    ensurePixelSpriteTextures(this.scene)
     const style = resolveRoomStyle(this.label)
     const graphics = this.scene.add.graphics()
 
@@ -114,69 +117,49 @@ export class TaskRoomPrefab {
     graphics.fillRect(this.x + 149, this.y + 33, 8, 2)
   }
 
-  private drawRequirements(graphics: Phaser.GameObjects.Graphics, style: TaskRoomStyle) {
-    graphics.fillStyle(0xc49b62, 1)
-    graphics.fillRect(this.x + 34, this.y + 34, 138, 44)
-    graphics.fillStyle(0xfff6df, 1)
-    graphics.fillRect(this.x + 42, this.y + 42, 18, 12)
-    graphics.fillRect(this.x + 68, this.y + 52, 16, 12)
-    graphics.fillRect(this.x + 92, this.y + 40, 22, 14)
-    graphics.fillStyle(style.accent, 1)
-    graphics.fillRect(this.x + 120, this.y + 48, 30, 3)
-    graphics.fillRect(this.x + 120, this.y + 58, 20, 3)
+  private drawRequirements(_graphics: Phaser.GameObjects.Graphics, _style: TaskRoomStyle) {
+    this.placeFurniture('requirements-desk', 'processing', this.x + 108, this.y + 84, 4)
   }
 
-  private drawPlanning(graphics: Phaser.GameObjects.Graphics, style: TaskRoomStyle) {
-    graphics.fillStyle(0xfffbef, 1)
-    graphics.fillRect(this.x + 40, this.y + 34, 124, 44)
-    graphics.fillStyle(style.accent, 1)
-    graphics.lineStyle(3, style.accent, 0.9)
-    graphics.lineBetween(this.x + 62, this.y + 52, this.x + 112, this.y + 52)
-    graphics.lineBetween(this.x + 112, this.y + 52, this.x + 142, this.y + 42)
-    graphics.lineBetween(this.x + 112, this.y + 52, this.x + 144, this.y + 64)
-    graphics.fillRect(this.x + 138, this.y + 36, 12, 10)
-    graphics.fillRect(this.x + 138, this.y + 60, 14, 10)
+  private drawPlanning(_graphics: Phaser.GameObjects.Graphics, _style: TaskRoomStyle) {
+    this.placeFurniture('planning-table', 'projecting', this.x + 106, this.y + 82, 3)
   }
 
-  private drawExecution(graphics: Phaser.GameObjects.Graphics, style: TaskRoomStyle) {
-    graphics.fillStyle(style.accent, 1)
-    graphics.fillRect(this.x + 28, this.y + 42, 44, 28)
-    graphics.fillRect(this.x + 82, this.y + 42, 44, 28)
-    graphics.fillRect(this.x + 136, this.y + 42, 32, 28)
-    graphics.fillStyle(0x8bc7be, 1)
-    graphics.fillRect(this.x + 34, this.y + 28, 28, 10)
-    graphics.fillRect(this.x + 88, this.y + 28, 28, 10)
-    graphics.fillStyle(0xd0643f, 1)
-    graphics.fillRect(this.x + 148, this.y + 74, 26, 4)
-    graphics.fillRect(this.x + 124, this.y + 76, 18, 4)
-    graphics.fillStyle(0xfff8ec, 1)
-    graphics.fillRect(this.x + 142, this.y + 46, 18, 8)
+  private drawExecution(_graphics: Phaser.GameObjects.Graphics, _style: TaskRoomStyle) {
+    this.placeFurniture('execution-workbench', 'active', this.x + 108, this.y + 96, 2)
   }
 
-  private drawReview(graphics: Phaser.GameObjects.Graphics, style: TaskRoomStyle) {
-    graphics.fillStyle(style.accent, 1)
-    graphics.fillRect(this.x + 42, this.y + 46, 92, 18)
-    graphics.fillStyle(0xfff7ed, 1)
-    graphics.fillRect(this.x + 146, this.y + 42, 24, 24)
-    graphics.fillStyle(0xd0643f, 1)
-    graphics.fillCircle(this.x + 166, this.y + 30, 9)
+  private drawReview(graphics: Phaser.GameObjects.Graphics, _style: TaskRoomStyle) {
+    this.placeFurniture('review-pedestal', 'fail', this.x + 162, this.y + 78, 2)
     graphics.fillStyle(0xcbb89f, 1)
     graphics.fillRect(this.x + 54, this.y + 72, 68, 8)
   }
 
-  private drawMemory(graphics: Phaser.GameObjects.Graphics, style: TaskRoomStyle) {
-    graphics.fillStyle(style.accent, 1)
+  private drawMemory(graphics: Phaser.GameObjects.Graphics, _style: TaskRoomStyle) {
+    graphics.fillStyle(0xa68d57, 1)
     graphics.fillRect(this.x + 28, this.y + 34, 14, 44)
     graphics.fillRect(this.x + 48, this.y + 34, 14, 44)
     graphics.fillRect(this.x + 68, this.y + 34, 14, 44)
     graphics.fillRect(this.x + 88, this.y + 34, 14, 44)
-    graphics.fillStyle(0xf4c34f, 1)
-    graphics.fillRect(this.x + 136, this.y + 30, 40, 12)
-    graphics.fillRect(this.x + 150, this.y + 44, 12, 30)
-    graphics.fillStyle(0xfff8ec, 1)
-    graphics.fillRect(this.x + 31, this.y + 38, 3, 3)
-    graphics.fillRect(this.x + 51, this.y + 38, 3, 3)
-    graphics.fillRect(this.x + 71, this.y + 38, 3, 3)
-    graphics.fillRect(this.x + 91, this.y + 38, 3, 3)
+    this.placeFurniture('memory-archive', 'storing', this.x + 156, this.y + 84, 2)
+  }
+
+  private placeFurniture(
+    id:
+      | 'requirements-desk'
+      | 'planning-table'
+      | 'execution-workbench'
+      | 'review-pedestal'
+      | 'memory-archive',
+    frame: string,
+    x: number,
+    y: number,
+    scale: number,
+  ) {
+    const spec = getFurnitureSpriteSpec(id)
+    const sprite = this.scene.add.image(x, y, `${spec.key}-${frame}`)
+    sprite.setOrigin(0.5, 1)
+    sprite.setScale(scale)
+    sprite.setDepth(y)
   }
 }

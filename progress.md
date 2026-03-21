@@ -29,6 +29,9 @@ Completed:
 - Commissioned Gemini Ultra for a dedicated task-world art-direction brief and saved it as `docs/2026-03-22-task-world-art-direction.md`
 - Commissioned Gemini Ultra for a dedicated sprite-and-object direction brief and saved it as `docs/2026-03-22-sprite-direction.md`
 - Wrote the formal AI art pipeline in `docs/2026-03-22-ai-art-pipeline.md`, locking Gemini Ultra as art director and Nano Banana as optional single-image asset support rather than the core game-production engine
+- Commissioned Gemini Ultra for a concrete first-pass sprite manifest in `docs/2026-03-22-core-asset-manifest.md`
+- Added a pixel sprite catalog + texture factory so characters and key office/task-world props can be rendered from reusable sprite definitions instead of ad-hoc scene rectangles
+- Swapped the three workers onto role-specific sprite textures and replaced the most visible whiteboards, task board, finance/tool props, and task-world nodes with sprite-first assets
 - Rebuilt the task world from a dark dashboard into a warmer project war-room layout with room-specific props
 - Removed worker name placards from the task-world runtime snapshot so the scene reads more like a room and less like a personnel chart
 - Switched office and task-world labels to hotspot-style hover/click reveals instead of always-on text
@@ -40,6 +43,7 @@ TODO:
 - Route the next major art-direction pass through Gemini Ultra before reworking the task world or any new scene
 - Push the main office further toward a true pixel-lobby feel with richer shading and less washed-out negative space
 - Replace the current vector-built props with real sprite sheets / atlas pieces once the silhouettes are locked
+- Fold the Gemini asset manifest into a true atlas/spritesheet pipeline instead of generated canvas textures
 - Push more functions into object affordances so even the remaining hover outlines can get subtler
 - Commission the three concept images from Gemini before visual refactor work starts
 - Expand live session hydration beyond the current session-list heuristic layer
