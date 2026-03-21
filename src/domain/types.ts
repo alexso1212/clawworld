@@ -53,6 +53,14 @@ export type ToolLocker = {
   state: ToolLockerState
 }
 
+export type SignalSeverity = 'stable' | 'warning' | 'critical'
+
+export type InfrastructureSignal = {
+  severity: SignalSeverity
+  room: string
+  label: string
+}
+
 export type TriageCard = {
   code: string
   objectId: string
@@ -60,4 +68,10 @@ export type TriageCard = {
   whatHappened: string
   impact: string
   firstCheck: string
+}
+
+export type Abnormality = {
+  id: string
+  marker: '!'
+  triageCard: TriageCard
 }

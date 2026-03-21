@@ -1,10 +1,20 @@
 import { useState } from 'react'
+import { mockAbnormalities } from '../adapters/mock/mockWorldState'
 import { GameShell } from '../game/GameShell'
+import { AbnormalityRegister } from '../ui/AbnormalityRegister'
 import { TaskDetailDrawer } from '../ui/TaskDetailDrawer'
+import { TriageCard } from '../ui/TriageCard'
 import { WhiteboardDrawer } from '../ui/WhiteboardDrawer'
 
 type SurfaceId = 'meeting-whiteboard' | 'boss-whiteboard' | null
 type SceneView = 'main-office' | 'task-world'
+type ActivePanelId =
+  | SurfaceId
+  | 'abnormality-register'
+  | 'abnormality-finance-low'
+  | 'abnormality-bridge-down'
+  | 'abnormality-tool-locker-blocked'
+  | null
 
 const publicTasks = [
   { id: 'task-landing', title: 'Landing page rebuild', owner: 'Execution Desk', status: 'In review' },
@@ -22,18 +32,23 @@ const privateTask = {
 }
 
 export default function App() {
-  const [activeSurface, setActiveSurface] = useState<SurfaceId>(null)
+  const [activePanel, setActivePanel] = useState<ActivePanelId>(null)
   const [sceneView, setSceneView] = useState<SceneView>('main-office')
   const [completedNotes, setCompletedNotes] = useState<string[]>([])
 
+  const activeAbnormality =
+    activePanel && activePanel.startsWith('abnormality-') && activePanel !== 'abnormality-register'
+      ? mockAbnormalities.find((item) => `abnormality-${item.id}` === activePanel) ?? null
+      : null
+
   const handleMarkerSelect = (surfaceId: string) => {
     if (surfaceId === 'meeting-whiteboard' || surfaceId === 'boss-whiteboard') {
-      setActiveSurface(surfaceId)
+      setActivePanel(surfaceId)
       return
     }
 
     if (surfaceId === 'portal-website-refresh') {
-      setActiveSurface(null)
+      setActivePanel(null)
       setSceneView('task-world')
       setCompletedNotes((current) =>
         current.includes('Delivered: Website Refresh')
@@ -44,8 +59,18 @@ export default function App() {
     }
 
     if (surfaceId === 'return-main-office') {
-      setActiveSurface(null)
+      setActivePanel(null)
       setSceneView('main-office')
+      return
+    }
+
+    if (
+      surfaceId === 'abnormality-register' ||
+      surfaceId === 'abnormality-finance-low' ||
+      surfaceId === 'abnormality-bridge-down' ||
+      surfaceId === 'abnormality-tool-locker-blocked'
+    ) {
+      setActivePanel(surfaceId)
     }
   }
 
@@ -55,28 +80,42 @@ export default function App() {
       <GameShell onMarkerSelect={handleMarkerSelect} sceneView={sceneView} />
       <section
         aria-label="Clawworld overlay root"
-        className={`overlay-root${activeSurface ? ' overlay-root--active' : ''}`}
+        className={`overlay-root${activePanel ? ' overlay-root--active' : ''}`}
         data-testid="overlay-root"
       >
-        {activeSurface === 'meeting-whiteboard' ? (
+        {activePanel === 'meeting-whiteboard' ? (
           <WhiteboardDrawer
             title="Team Task Board"
             subtitle="Meeting Room Whiteboard"
             tasks={publicTasks}
             completedNotes={completedNotes}
-            onClose={() => setActiveSurface(null)}
+            onClose={() => setActivePanel(null)}
           />
         ) : null}
 
-        {activeSurface === 'boss-whiteboard' ? (
+        {activePanel === 'boss-whiteboard' ? (
           <TaskDetailDrawer
             title="Boss Office Whiteboard"
             task={privateTask}
-            onClose={() => setActiveSurface(null)}
+            onClose={() => setActivePanel(null)}
           />
         ) : null}
 
-        {!activeSurface ? (
+        {activePanel === 'abnormality-register' ? (
+          <AbnormalityRegister
+            abnormalities={mockAbnormalities}
+            onClose={() => setActivePanel(null)}
+          />
+        ) : null}
+
+        {activeAbnormality ? (
+          <TriageCard
+            card={activeAbnormality.triageCard}
+            onClose={() => setActivePanel(null)}
+          />
+        ) : null}
+
+        {!activePanel ? (
           <p className="overlay-placeholder">
             {sceneView === 'main-office'
               ? 'Walk up to a whiteboard in the office to inspect task flow.'

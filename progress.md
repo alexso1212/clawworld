@@ -8,8 +8,10 @@ Completed:
 - Added embedded wall display plus meeting-room and boss-office whiteboards
 - Added a task-world scene with the seven fixed rooms and portal entry
 - Added worker prefabs, task-world motion, and completed delivery slips
+- Added finance, bridge-route, and tool-locker warning signals
+- Added abnormality markers, register, and triage cards
 
 TODO:
-- Add diagnostics and in-scene panels
 - Connect mock task worlds to real task-room detail views
-- Add underfloor finance, route, and tool-locker systems
+- Replace mock infrastructure with live OpenClaw/Hivemind adapter data
+- Reduce Phaser bundle size by splitting heavier scene code

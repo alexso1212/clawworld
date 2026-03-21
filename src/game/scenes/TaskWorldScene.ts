@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { mockInfrastructureState } from '../../adapters/mock/mockWorldState'
 import { createTaskWorld } from '../../domain/taskWorld'
 import type { SceneBridge } from '../engine/sceneBridge'
 import { TaskRoomPrefab } from './prefabs/TaskRoomPrefab'
@@ -98,8 +99,8 @@ export class TaskWorldScene extends Phaser.Scene {
         prefab: new WorkerPrefab(this, { id: 'executor', label: 'Executor', x: 290, y: 646 }),
         targetX: 304,
         targetY: 560,
-        startAtMs: 700,
-        speedPerSecond: 210,
+        startAtMs: mockInfrastructureState.toolLocker.state === 'blocked' ? 1100 : 700,
+        speedPerSecond: mockInfrastructureState.route.status === 'rerouting' ? 165 : 210,
         locationId: 'execution',
         arrived: false,
       },

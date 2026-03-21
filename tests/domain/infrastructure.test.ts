@@ -2,6 +2,9 @@ import {
   classifyReserveState,
   createRoute,
   createToolLocker,
+  deriveBudgetSignal,
+  deriveRouteSignal,
+  deriveToolSignal,
 } from '../../src/domain/infrastructure'
 
 test('budget reserves tighten as office cash burns down', () => {
@@ -28,4 +31,24 @@ test('routes and tool lockers keep office infrastructure readable', () => {
   expect(route.type).toBe('bridge')
   expect(route.status).toBe('rerouting')
   expect(locker.state).toBe('blocked')
+})
+
+test('maps low reserves and unstable systems into office warning signals', () => {
+  expect(deriveBudgetSignal('low')).toEqual({
+    severity: 'warning',
+    room: 'finance',
+    label: 'Finance Warning',
+  })
+
+  expect(deriveRouteSignal('rerouting')).toEqual({
+    severity: 'warning',
+    room: 'bridge-route',
+    label: 'Bridge Route',
+  })
+
+  expect(deriveToolSignal('blocked')).toEqual({
+    severity: 'warning',
+    room: 'tool-locker',
+    label: 'Tool Locker',
+  })
 })

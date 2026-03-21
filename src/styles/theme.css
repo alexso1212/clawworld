@@ -269,6 +269,31 @@ select {
   color: #9fe7ff;
 }
 
+.register-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.triage-card h3 {
+  margin: 0.9rem 0 0.35rem;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9fe7ff;
+}
+
+.triage-card h3:first-of-type {
+  margin-top: 0;
+}
+
+.triage-card p {
+  margin: 0;
+  color: rgba(223, 236, 255, 0.82);
+}
+
 .detail-grid {
   margin: 0;
   display: grid;
