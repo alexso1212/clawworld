@@ -28,6 +28,7 @@ Completed:
 - Added more lived-in lobby props and trim so the main office reads more like a staffed lounge instead of a schematic floorplan
 - Commissioned Gemini Ultra for a dedicated task-world art-direction brief and saved it as `docs/2026-03-22-task-world-art-direction.md`
 - Commissioned Gemini Ultra for a dedicated sprite-and-object direction brief and saved it as `docs/2026-03-22-sprite-direction.md`
+- Wrote the formal AI art pipeline in `docs/2026-03-22-ai-art-pipeline.md`, locking Gemini Ultra as art director and Nano Banana as optional single-image asset support rather than the core game-production engine
 - Rebuilt the task world from a dark dashboard into a warmer project war-room layout with room-specific props
 - Removed worker name placards from the task-world runtime snapshot so the scene reads more like a room and less like a personnel chart
 - Switched office and task-world labels to hotspot-style hover/click reveals instead of always-on text
