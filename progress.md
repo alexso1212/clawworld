@@ -24,6 +24,8 @@ Completed:
 - Restyled the remaining placards into squarer “sticky note” markers and removed the old wall-feed overlay
 - Tightened the outer shell into a smaller arcade-style plaque + framed scene window instead of a full-width web dashboard
 - Shortened the default hint copy so the shell reads more like a game prompt and less like documentation
+- Removed the redundant in-scene “Main Office” marker from the runtime snapshot
+- Added more lived-in lobby props and trim so the main office reads more like a staffed lounge instead of a schematic floorplan
 
 TODO:
 - Push the main office further toward a true pixel-lobby feel with more prop detail and less schematic spacing

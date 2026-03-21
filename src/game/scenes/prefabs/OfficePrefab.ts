@@ -16,6 +16,7 @@ export class OfficePrefab {
   build(): SceneSnapshot {
     this.drawBackdrop()
     this.drawHallShell()
+    this.drawLobbyTrim()
     this.drawCentralLounge()
     this.drawMeetingWing()
     this.drawBossOffice()
@@ -23,6 +24,7 @@ export class OfficePrefab {
     this.drawTaskBoard()
     this.drawTeaBar()
     this.drawSupportHall()
+    this.drawLivingProps()
     this.drawMountedDisplay()
     this.drawAmbientStrip()
 
@@ -40,7 +42,6 @@ export class OfficePrefab {
       ],
       portals: ['portal-website-refresh'],
       markers: [
-        { id: 'title-main-office', label: 'Main Office', x: 8, y: 10, variant: 'title' },
         {
           id: 'meeting-whiteboard',
           label: 'Meeting Room Whiteboard',
@@ -121,11 +122,34 @@ export class OfficePrefab {
     graphics.fillRoundedRect(868, 534, 238, 54, 4)
   }
 
+  private drawLobbyTrim() {
+    const graphics = this.scene.add.graphics()
+
+    graphics.fillStyle(0xd9c6a4, 0.95)
+    graphics.fillRoundedRect(130, 176, 936, 14, 2)
+    graphics.fillRoundedRect(130, 604, 936, 14, 2)
+    graphics.fillRoundedRect(130, 190, 14, 414, 2)
+    graphics.fillRoundedRect(1052, 190, 14, 414, 2)
+
+    graphics.fillStyle(0xf8efd8, 1)
+    graphics.fillRoundedRect(146, 192, 20, 24, 2)
+    graphics.fillRoundedRect(1018, 192, 20, 24, 2)
+    graphics.fillRoundedRect(146, 568, 20, 24, 2)
+    graphics.fillRoundedRect(1018, 568, 20, 24, 2)
+
+    graphics.fillStyle(0xd9b17d, 0.8)
+    for (let x = 170; x <= 1010; x += 84) {
+      graphics.fillRoundedRect(x, 612, 34, 6, 1)
+    }
+  }
+
   private drawCentralLounge() {
     const graphics = this.scene.add.graphics()
 
     graphics.fillStyle(0xf2ddcc, 1)
     graphics.fillRoundedRect(382, 236, 328, 208, 4)
+    graphics.fillStyle(0xd2b699, 0.38)
+    graphics.fillRoundedRect(396, 430, 296, 16, 2)
     graphics.fillStyle(0xfff3e1, 1)
     graphics.fillRoundedRect(450, 270, 192, 140, 4)
     graphics.fillStyle(0xe3b996, 1)
@@ -151,6 +175,8 @@ export class OfficePrefab {
 
     graphics.fillStyle(0xd8ebe7, 0.9)
     graphics.fillRoundedRect(748, 180, 214, 148, 4)
+    graphics.fillStyle(0x8bc7be, 0.22)
+    graphics.fillRoundedRect(758, 190, 194, 128, 2)
     graphics.lineStyle(3, 0x2a7b74, 0.85)
     graphics.strokeRoundedRect(748, 180, 214, 148, 4)
 
@@ -169,10 +195,14 @@ export class OfficePrefab {
 
     graphics.fillStyle(0xefe6d4, 1)
     graphics.fillRoundedRect(974, 182, 150, 136, 4)
+    graphics.fillStyle(0xd7c5ab, 0.65)
+    graphics.fillRoundedRect(986, 194, 126, 112, 2)
     graphics.fillStyle(0xffffff, 1)
     graphics.fillRoundedRect(1014, 218, 82, 46, 2)
     graphics.fillStyle(0x243142, 0.92)
     graphics.fillRoundedRect(1000, 274, 112, 14, 2)
+    graphics.fillStyle(0x89b481, 1)
+    graphics.fillRoundedRect(989, 282, 12, 18, 2)
   }
 
   private drawDeskField() {
@@ -180,6 +210,8 @@ export class OfficePrefab {
 
     graphics.fillStyle(0xd8ebe7, 0.85)
     graphics.fillRoundedRect(828, 360, 276, 160, 4)
+    graphics.fillStyle(0xb9d8d3, 0.3)
+    graphics.fillRoundedRect(842, 374, 248, 132, 2)
 
     const deskColor = 0xeadcc8
     const chairColor = 0xf2b874
@@ -203,6 +235,8 @@ export class OfficePrefab {
     graphics.fillStyle(0xfff7ed, 1)
     graphics.fillCircle(1048, 390, 10)
     graphics.fillCircle(919, 506, 10)
+    graphics.fillStyle(0xd0643f, 1)
+    graphics.fillRoundedRect(853, 526, 44, 10, 2)
   }
 
   private drawTaskBoard() {
@@ -210,12 +244,17 @@ export class OfficePrefab {
 
     graphics.fillStyle(0xffefbf, 0.95)
     graphics.fillRoundedRect(140, 462, 246, 120, 3)
+    graphics.fillStyle(0xf9e4a3, 1)
+    graphics.fillRoundedRect(154, 474, 216, 16, 2)
     graphics.fillStyle(0xf6ce62, 1)
     graphics.fillRoundedRect(170, 506, 34, 26, 2)
     graphics.fillStyle(0xf0a167, 1)
     graphics.fillRoundedRect(214, 506, 34, 26, 2)
     graphics.fillStyle(0xd0643f, 1)
     graphics.fillRoundedRect(258, 506, 34, 26, 2)
+    graphics.fillStyle(0x7f6f59, 1)
+    graphics.fillRoundedRect(310, 510, 26, 6, 1)
+    graphics.fillRoundedRect(310, 522, 40, 6, 1)
   }
 
   private drawTeaBar() {
@@ -223,12 +262,16 @@ export class OfficePrefab {
 
     graphics.fillStyle(0xeedec8, 1)
     graphics.fillRoundedRect(456, 496, 232, 98, 3)
+    graphics.fillStyle(0xf6ebdc, 1)
+    graphics.fillRoundedRect(474, 506, 194, 18, 2)
     graphics.fillStyle(0xd7bea0, 1)
     graphics.fillRoundedRect(492, 536, 164, 18, 2)
     graphics.fillStyle(0xfff7ed, 1)
     graphics.fillCircle(524, 528, 12)
     graphics.fillStyle(0x243142, 0.9)
     graphics.fillRoundedRect(628, 516, 22, 34, 2)
+    graphics.fillStyle(0x89b481, 1)
+    graphics.fillRoundedRect(650, 510, 14, 18, 2)
   }
 
   private drawSupportHall() {
@@ -252,6 +295,36 @@ export class OfficePrefab {
     graphics.fillCircle(1022, 492, 4)
     graphics.fillStyle(0xd0643f, 1)
     graphics.fillCircle(1034, 492, 4)
+    graphics.fillStyle(0xf7eddc, 1)
+    graphics.fillRoundedRect(1080, 212, 50, 276, 2)
+    graphics.fillStyle(0xcfb384, 1)
+    for (let y = 228; y <= 468; y += 48) {
+      graphics.fillRoundedRect(1088, y, 34, 10, 1)
+    }
+  }
+
+  private drawLivingProps() {
+    const graphics = this.scene.add.graphics()
+
+    graphics.fillStyle(0x89b481, 1)
+    graphics.fillRoundedRect(180, 208, 18, 22, 2)
+    graphics.fillRoundedRect(220, 208, 18, 22, 2)
+    graphics.fillRoundedRect(1096, 560, 16, 22, 2)
+
+    graphics.fillStyle(0xd4a46c, 1)
+    graphics.fillRoundedRect(176, 228, 26, 8, 2)
+    graphics.fillRoundedRect(216, 228, 26, 8, 2)
+    graphics.fillRoundedRect(1092, 582, 24, 8, 2)
+
+    graphics.fillStyle(0xf7e7ca, 0.85)
+    graphics.fillRoundedRect(726, 96, 92, 10, 2)
+    graphics.fillRoundedRect(738, 540, 36, 44, 2)
+    graphics.fillRoundedRect(1090, 360, 44, 66, 2)
+
+    graphics.fillStyle(0xd0643f, 0.18)
+    graphics.fillRoundedRect(152, 440, 262, 12, 2)
+    graphics.fillRoundedRect(452, 594, 242, 10, 2)
+    graphics.fillRoundedRect(834, 528, 286, 12, 2)
   }
 
   private drawMountedDisplay() {
