@@ -1,4 +1,4 @@
-type OnWallDisplayItem = {
+export type OnWallDisplayItem = {
   label: string
   value: string
 }

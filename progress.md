@@ -10,8 +10,10 @@ Completed:
 - Added worker prefabs, task-world motion, and completed delivery slips
 - Added finance, bridge-route, and tool-locker warning signals
 - Added abnormality markers, register, and triage cards
+- Added an OpenClaw browser event bridge so live session payloads can hydrate the office state
+- Fixed the Zustand selector loop that was blanking the app and crashing AppShell tests
 
 TODO:
-- Connect mock task worlds to real task-room detail views
-- Replace mock infrastructure with live OpenClaw/Hivemind adapter data
+- Connect the browser event bridge to a real OpenClaw/Hivemind transport instead of manual dispatch
+- Expand live session hydration beyond the single-session MVP shape
 - Reduce Phaser bundle size by splitting heavier scene code

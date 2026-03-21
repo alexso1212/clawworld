@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
-import { mockInfrastructureState } from '../../adapters/mock/mockWorldState'
-import { createTaskWorld } from '../../domain/taskWorld'
+import type { ClawworldRuntimeSession } from '../../adapters/openclaw/types'
 import type { SceneBridge } from '../engine/sceneBridge'
 import { TaskRoomPrefab } from './prefabs/TaskRoomPrefab'
 import { WorkerPrefab } from './prefabs/WorkerPrefab'
@@ -19,18 +18,16 @@ type WorkerTrack = {
 
 export class TaskWorldScene extends Phaser.Scene {
   private readonly bridge: SceneBridge
-  private world = createTaskWorld({
-    id: 'website-refresh',
-    title: 'Website Refresh',
-  })
+  private readonly runtimeSession: ClawworldRuntimeSession
   private workers: WorkerTrack[] = []
   private elapsedMs = 0
   private deliveryVisible = false
   private deliverySlip?: Phaser.GameObjects.Text
 
-  constructor(bridge: SceneBridge) {
+  constructor(bridge: SceneBridge, runtimeSession: ClawworldRuntimeSession) {
     super('task-world')
     this.bridge = bridge
+    this.runtimeSession = runtimeSession
   }
 
   create() {
@@ -42,7 +39,7 @@ export class TaskWorldScene extends Phaser.Scene {
     graphics.fillStyle(0x142540, 1)
     graphics.fillRoundedRect(56, 84, 1168, 586, 30)
 
-    this.add.text(86, 60, 'Task World: Website Refresh', {
+    this.add.text(86, 60, `Task World: ${this.runtimeSession.title}`, {
       color: '#e7f1ff',
       fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
       fontSize: '24px',
@@ -66,12 +63,12 @@ export class TaskWorldScene extends Phaser.Scene {
       { x: 850, y: 410 },
     ]
 
-    this.world.rooms.forEach((room, index) => {
+    this.runtimeSession.taskWorld.rooms.forEach((room, index) => {
       const slot = slots[index]
       new TaskRoomPrefab(this, slot.x, slot.y, room.label).draw()
     })
 
-    this.deliverySlip = this.add.text(880, 128, 'Delivered: Website Refresh', {
+    this.deliverySlip = this.add.text(880, 128, `Delivered: ${this.runtimeSession.title}`, {
       color: '#f8fdff',
       fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
       fontSize: '18px',
@@ -99,8 +96,8 @@ export class TaskWorldScene extends Phaser.Scene {
         prefab: new WorkerPrefab(this, { id: 'executor', label: 'Executor', x: 290, y: 646 }),
         targetX: 304,
         targetY: 560,
-        startAtMs: mockInfrastructureState.toolLocker.state === 'blocked' ? 1100 : 700,
-        speedPerSecond: mockInfrastructureState.route.status === 'rerouting' ? 165 : 210,
+        startAtMs: this.runtimeSession.tools[0]?.state === 'blocked' ? 1100 : 700,
+        speedPerSecond: this.runtimeSession.route.status === 'rerouting' ? 165 : 210,
         locationId: 'execution',
         arrived: false,
       },
@@ -171,11 +168,11 @@ export class TaskWorldScene extends Phaser.Scene {
   private publishSnapshot() {
     this.bridge.setSnapshot({
       scene: 'task-world',
-      title: 'Website Refresh',
-      rooms: this.world.rooms.map((room) => room.label),
+      title: this.runtimeSession.title,
+      rooms: this.runtimeSession.taskWorld.rooms.map((room) => room.label),
       portals: ['return-main-office'],
       markers: [
-        { id: 'task-world-title', label: 'Website Refresh', x: 15, y: 9, variant: 'title' },
+        { id: 'task-world-title', label: this.runtimeSession.title, x: 15, y: 9, variant: 'title' },
         {
           id: 'return-main-office',
           label: 'Return to Main Office',
@@ -214,7 +211,7 @@ export class TaskWorldScene extends Phaser.Scene {
           ? [
               {
                 id: 'delivery-note',
-                label: 'Delivered: Website Refresh',
+                label: `Delivered: ${this.runtimeSession.title}`,
                 x: 82,
                 y: 20,
                 variant: 'delivery' as const,

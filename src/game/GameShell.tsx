@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import type { ClawworldRuntimeSession } from '../adapters/openclaw/types'
 import {
   createSceneBridge,
   type SceneMarker,
   type SceneSnapshot,
 } from './engine/sceneBridge'
-import { OnWallDisplay } from '../ui/OnWallDisplay'
+import { OnWallDisplay, type OnWallDisplayItem } from '../ui/OnWallDisplay'
 
 declare global {
   interface Window {
@@ -54,11 +55,18 @@ function MarkerTag({ marker }: { marker: SceneMarker }) {
 }
 
 type GameShellProps = {
+  displayItems: OnWallDisplayItem[]
   onMarkerSelect?: (markerId: string) => void
+  runtimeSession: ClawworldRuntimeSession
   sceneView: 'main-office' | 'task-world'
 }
 
-export function GameShell({ onMarkerSelect, sceneView }: GameShellProps) {
+export function GameShell({
+  displayItems,
+  onMarkerSelect,
+  runtimeSession,
+  sceneView,
+}: GameShellProps) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const [bridge] = useState(() => createSceneBridge())
   const [snapshot, setSnapshot] = useState<SceneSnapshot>(() => bridge.getSnapshot())
@@ -90,7 +98,7 @@ export function GameShell({ onMarkerSelect, sceneView }: GameShellProps) {
         return
       }
 
-      const game = createGame(hostRef.current, bridge, sceneView)
+      const game = createGame(hostRef.current, bridge, sceneView, runtimeSession)
       destroyGame = () => {
         game.destroy(true)
       }
@@ -101,7 +109,7 @@ export function GameShell({ onMarkerSelect, sceneView }: GameShellProps) {
       bridge.resetAdvanceHandler()
       destroyGame?.()
     }
-  }, [bridge, sceneView])
+  }, [bridge, runtimeSession, sceneView])
 
   return (
     <section
@@ -111,13 +119,7 @@ export function GameShell({ onMarkerSelect, sceneView }: GameShellProps) {
     >
       <div className="scene-canvas" ref={hostRef} />
       {sceneView === 'main-office' ? (
-        <OnWallDisplay
-          items={[
-            { label: 'Open tasks', value: '03' },
-            { label: 'Budget state', value: 'Stable' },
-            { label: 'Bridge line', value: 'Healthy' },
-          ]}
-        />
+        <OnWallDisplay items={displayItems} />
       ) : null}
       <div className="scene-placards">
         {snapshot.markers.map((marker) => (

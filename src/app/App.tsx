@@ -1,6 +1,14 @@
 import { useState } from 'react'
-import { mockAbnormalities } from '../adapters/mock/mockWorldState'
 import { GameShell } from '../game/GameShell'
+import { useClawworldStore } from '../state/clawworldStore'
+import {
+  deriveAbnormalities,
+  deriveBoardTasks,
+  deriveCompletedNotes,
+  derivePrivateTask,
+  deriveWallDisplayItems,
+  selectRuntimeSession,
+} from '../state/selectors'
 import { AbnormalityRegister } from '../ui/AbnormalityRegister'
 import { TaskDetailDrawer } from '../ui/TaskDetailDrawer'
 import { TriageCard } from '../ui/TriageCard'
@@ -16,29 +24,19 @@ type ActivePanelId =
   | 'abnormality-tool-locker-blocked'
   | null
 
-const publicTasks = [
-  { id: 'task-landing', title: 'Landing page rebuild', owner: 'Execution Desk', status: 'In review' },
-  { id: 'task-memory', title: 'Memory locker audit', owner: 'Archive Room', status: 'Queued' },
-  { id: 'task-bridge', title: 'Bridge Alpha fallback drill', owner: 'Finance Room', status: 'Needs routing' },
-]
-
-const privateTask = {
-  id: 'task-clawworld-core',
-  title: 'Clawworld office shell',
-  stage: 'Office standby scene',
-  route: 'Official API with bridge fallback',
-  tools: ['memory', 'task-board', 'phaser'],
-  blocker: 'Interactive whiteboard details still being wired',
-}
-
 export default function App() {
   const [activePanel, setActivePanel] = useState<ActivePanelId>(null)
   const [sceneView, setSceneView] = useState<SceneView>('main-office')
-  const [completedNotes, setCompletedNotes] = useState<string[]>([])
+  const runtimeSession = useClawworldStore(selectRuntimeSession)
+  const publicTasks = deriveBoardTasks(runtimeSession)
+  const privateTask = derivePrivateTask(runtimeSession)
+  const completedNotes = deriveCompletedNotes(runtimeSession)
+  const abnormalityList = deriveAbnormalities(runtimeSession)
+  const wallDisplayItems = deriveWallDisplayItems(runtimeSession)
 
   const activeAbnormality =
     activePanel && activePanel.startsWith('abnormality-') && activePanel !== 'abnormality-register'
-      ? mockAbnormalities.find((item) => `abnormality-${item.id}` === activePanel) ?? null
+      ? abnormalityList.find((item) => `abnormality-${item.id}` === activePanel) ?? null
       : null
 
   const handleMarkerSelect = (surfaceId: string) => {
@@ -50,11 +48,6 @@ export default function App() {
     if (surfaceId === 'portal-website-refresh') {
       setActivePanel(null)
       setSceneView('task-world')
-      setCompletedNotes((current) =>
-        current.includes('Delivered: Website Refresh')
-          ? current
-          : [...current, 'Delivered: Website Refresh'],
-      )
       return
     }
 
@@ -77,7 +70,12 @@ export default function App() {
   return (
     <main className="app-shell">
       <header className="office-banner">Clawworld</header>
-      <GameShell onMarkerSelect={handleMarkerSelect} sceneView={sceneView} />
+      <GameShell
+        displayItems={wallDisplayItems}
+        onMarkerSelect={handleMarkerSelect}
+        runtimeSession={runtimeSession}
+        sceneView={sceneView}
+      />
       <section
         aria-label="Clawworld overlay root"
         className={`overlay-root${activePanel ? ' overlay-root--active' : ''}`}
@@ -103,7 +101,7 @@ export default function App() {
 
         {activePanel === 'abnormality-register' ? (
           <AbnormalityRegister
-            abnormalities={mockAbnormalities}
+            abnormalities={abnormalityList}
             onClose={() => setActivePanel(null)}
           />
         ) : null}

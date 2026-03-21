@@ -1,46 +1,26 @@
-import {
-  createReserve,
-  createRoute,
-  createToolLocker,
-  deriveBudgetSignal,
-  deriveRouteSignal,
-  deriveToolSignal,
-} from '../../domain/infrastructure'
-import { createAbnormality } from '../../domain/diagnostics'
+import { mapOpenClawSession } from '../openclaw/openclawAdapter'
+import type { OpenClawSessionPayload } from '../openclaw/types'
 
-const reserve = createReserve({
-  id: 'official-budget',
-  label: 'Official Budget',
-  balanceRatio: 0.22,
-})
-
-const route = createRoute({
-  id: 'bridge-alpha',
-  label: 'Bridge Alpha',
-  type: 'bridge',
-  status: 'rerouting',
-})
-
-const toolLocker = createToolLocker({
-  id: 'memory-locker',
-  label: 'Memory Locker',
-  toolIds: ['memory'],
-  state: 'blocked',
-})
-
-export const mockInfrastructureState = {
-  reserve,
-  route,
-  toolLocker,
-  signals: [
-    deriveBudgetSignal(reserve.state),
-    deriveRouteSignal(route.status),
-    deriveToolSignal(toolLocker.state),
-  ],
+export const mockOpenClawSession: OpenClawSessionPayload = {
+  id: 'website-refresh',
+  title: 'Website Refresh',
+  phase: 'review',
+  worker: 'reviewer',
+  route: 'bridge',
+  tools: ['memory'],
+  abnormality: 'bridge-down',
+  reserveState: 'low',
+  routeStatus: 'rerouting',
+  toolState: 'blocked',
 }
 
-export const mockAbnormalities = [
-  createAbnormality('finance-low'),
-  createAbnormality('bridge-down'),
-  createAbnormality('tool-locker-blocked'),
-]
+export const mockRuntimeSession = mapOpenClawSession(mockOpenClawSession)
+
+export const mockInfrastructureState = {
+  reserve: mockRuntimeSession.reserve,
+  route: mockRuntimeSession.route,
+  toolLocker: mockRuntimeSession.tools[0],
+  signals: mockRuntimeSession.signals,
+}
+
+export const mockAbnormalities = mockRuntimeSession.abnormalities
