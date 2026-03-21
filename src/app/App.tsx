@@ -116,8 +116,8 @@ export default function App() {
         {!activePanel ? (
           <p className="overlay-placeholder">
             {sceneView === 'main-office'
-              ? 'Walk up to a whiteboard in the office to inspect task flow.'
-              : 'Task world open. Follow the fixed rooms to watch the assignment move.'}
+              ? 'Walk to a board to open the queue.'
+              : 'Follow the room trail to inspect the job.'}
           </p>
         ) : null}
       </section>

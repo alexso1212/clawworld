@@ -22,6 +22,8 @@ Completed:
 - Removed most always-on environment labels from the main hall so the room reads as a scene instead of a diagram
 - Kept only core interaction cues visible in the main hall: task board, whiteboards, and infrastructure warnings
 - Restyled the remaining placards into squarer “sticky note” markers and removed the old wall-feed overlay
+- Tightened the outer shell into a smaller arcade-style plaque + framed scene window instead of a full-width web dashboard
+- Shortened the default hint copy so the shell reads more like a game prompt and less like documentation
 
 TODO:
 - Push the main office further toward a true pixel-lobby feel with more prop detail and less schematic spacing
