@@ -17,67 +17,48 @@ export class MainOfficeScene extends Phaser.Scene {
   create() {
     const office = new OfficePrefab(this)
     const snapshot = office.build()
-    const workers = [
-      new WorkerPrefab(this, { id: 'amane-office', label: 'Amane', x: 170, y: 246 }),
-      new WorkerPrefab(this, { id: 'executor-office', label: 'Executor', x: 258, y: 304 }),
-      new WorkerPrefab(this, { id: 'reviewer-office', label: 'Reviewer', x: 346, y: 362 }),
+    void [
+      new WorkerPrefab(this, { id: 'amane-office', label: 'Amane', x: 470, y: 340, color: 0xf4c34f }),
+      new WorkerPrefab(this, { id: 'executor-office', label: 'Executor', x: 912, y: 448, color: 0x5e98c7 }),
+      new WorkerPrefab(this, { id: 'reviewer-office', label: 'Reviewer', x: 996, y: 448, color: 0xc3835f }),
     ]
-
-    const warningStyle = {
-      color: '#ffd58f',
-      fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
-      fontSize: '15px',
-      fontStyle: '700',
-    }
-
-    this.add.text(184, 652, this.runtimeSession.signals[0].label, warningStyle)
-    this.add.text(520, 652, this.runtimeSession.signals[1].label, warningStyle)
-    this.add.text(840, 652, this.runtimeSession.signals[2].label, warningStyle)
-    this.add.text(974, 138, 'Abnormality Register', warningStyle)
-    this.add.text(470, 612, '!', {
-      color: '#ffefcf',
-      fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
-      fontSize: '26px',
-      fontStyle: '700',
-    })
 
     this.bridge.setSnapshot({
       ...snapshot,
       markers: [
         ...snapshot.markers,
-        ...workers.map((worker) => worker.toMarker()),
-        { id: 'signal-finance', label: this.runtimeSession.signals[0].label, x: 23, y: 84, variant: 'surface' },
-        { id: 'signal-route', label: this.runtimeSession.signals[1].label, x: 51, y: 84, variant: 'surface' },
-        { id: 'signal-tool', label: this.runtimeSession.signals[2].label, x: 79, y: 84, variant: 'surface' },
+        { id: 'signal-finance', label: this.runtimeSession.signals[0].label, x: 22, y: 75, variant: 'surface' },
+        { id: 'signal-route', label: this.runtimeSession.signals[1].label, x: 73, y: 75, variant: 'surface' },
+        { id: 'signal-tool', label: this.runtimeSession.signals[2].label, x: 82, y: 68, variant: 'surface' },
         {
           id: 'abnormality-register',
-          label: 'Abnormality Register',
-          x: 86,
-          y: 18,
+          label: 'Abnormality Desk',
+          x: 83,
+          y: 62,
           variant: 'surface',
           interactive: true,
         },
         {
           id: 'abnormality-finance-low',
           label: this.runtimeSession.abnormalities[0]?.marker ?? '!',
-          x: 29,
-          y: 84,
+          x: 28,
+          y: 74,
           variant: 'delivery',
           interactive: true,
         },
         {
           id: 'abnormality-bridge-down',
           label: this.runtimeSession.abnormalities[1]?.marker ?? '!',
-          x: 58,
-          y: 84,
+          x: 78,
+          y: 74,
           variant: 'delivery',
           interactive: true,
         },
         {
           id: 'abnormality-tool-locker-blocked',
           label: this.runtimeSession.abnormalities[2]?.marker ?? '!',
-          x: 86,
-          y: 84,
+          x: 88,
+          y: 68,
           variant: 'delivery',
           interactive: true,
         },

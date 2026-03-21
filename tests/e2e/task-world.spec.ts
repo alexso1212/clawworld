@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test('opens a task world and shows the seven core rooms', async ({ page }) => {
   await page.goto('/')
-  await page.getByText('Portal: Website Refresh').click()
+  await page.getByRole('button', { name: 'Task Board' }).click()
 
   await expect(page.getByText('Reception')).toBeVisible()
   await expect(page.getByText('Amane Desk')).toBeVisible()

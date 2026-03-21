@@ -18,11 +18,14 @@ Completed:
 - Pulled a Gemini-generated office art-direction brief and saved it into `docs/2026-03-22-office-art-direction.md`
 - Created a browser-viewable blueprint wall at `public/blueprints/index.html`
 - Added three SVG construction sheets for the main office, meeting room, and support corridor
+- Rebuilt the main office toward a warmer pixel-office lobby layout with chunkier furniture silhouettes
+- Removed most always-on environment labels from the main hall so the room reads as a scene instead of a diagram
+- Kept only core interaction cues visible in the main hall: task board, whiteboards, and infrastructure warnings
+- Restyled the remaining placards into squarer “sticky note” markers and removed the old wall-feed overlay
 
 TODO:
-- Rebuild the main office scene against the new art-direction brief before adding more features
-- Use the new blueprint wall as the layout source of truth for the lobby visual refactor
-- Replace floating labels with object-first interaction cues and environmental state signals
+- Push the main office further toward a true pixel-lobby feel with more prop detail and less schematic spacing
+- Add selective hover/focus labels so more interaction text can stay hidden until needed
 - Commission the three concept images from Gemini before visual refactor work starts
 - Expand live session hydration beyond the current session-list heuristic layer
 - Add richer task-world details for real sessions (preview, phase inference, per-task drilldown)

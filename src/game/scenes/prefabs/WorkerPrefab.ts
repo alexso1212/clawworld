@@ -17,8 +17,9 @@ const SCENE_HEIGHT = 720
 export class WorkerPrefab {
   private readonly id: string
   private readonly label: string
-  private readonly body: Phaser.GameObjects.Arc
-  private readonly caption: Phaser.GameObjects.Text
+  private readonly baseColor: number
+  private readonly head: Phaser.GameObjects.Arc
+  private readonly body: Phaser.GameObjects.Rectangle
   private x: number
   private y: number
   private mode: WorkerMode = 'idle'
@@ -26,22 +27,19 @@ export class WorkerPrefab {
   constructor(scene: Phaser.Scene, options: WorkerPrefabOptions) {
     this.id = options.id
     this.label = options.label
+    this.baseColor = options.color ?? 0x5e98c7
     this.x = options.x
     this.y = options.y
 
-    this.body = scene.add.circle(options.x, options.y, 14, options.color ?? 0x8fe0ff, 0.95)
-    this.body.setStrokeStyle(2, 0xe9f6ff, 0.85)
-    this.caption = scene.add.text(options.x - 28, options.y - 34, options.label, {
-      color: '#dcecff',
-      fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
-      fontSize: '16px',
-      fontStyle: '700',
-    })
+    this.head = scene.add.circle(options.x, options.y - 10, 8, 0xfbf2e7, 0.95)
+    this.head.setStrokeStyle(1.5, 0x243142, 0.9)
+    this.body = scene.add.rectangle(options.x, options.y + 8, 18, 24, this.baseColor, 0.96)
+    this.body.setStrokeStyle(1.5, 0x243142, 0.75)
   }
 
   setMode(mode: WorkerMode) {
     this.mode = mode
-    this.body.setFillStyle(mode === 'moving' ? 0xffd36b : mode === 'reporting' ? 0xa6ffbf : 0x8fe0ff)
+    this.body.setFillStyle(mode === 'moving' ? 0xffd36b : mode === 'reporting' ? 0xa6ffbf : this.baseColor)
   }
 
   moveToward(targetX: number, targetY: number, deltaMs: number, speedPerSecond = 150) {
@@ -67,8 +65,8 @@ export class WorkerPrefab {
   setPosition(x: number, y: number) {
     this.x = x
     this.y = y
-    this.body.setPosition(x, y)
-    this.caption.setPosition(x - this.caption.width / 2, y - 34)
+    this.head.setPosition(x, y - 10)
+    this.body.setPosition(x, y + 8)
   }
 
   toMarker(): SceneMarker {

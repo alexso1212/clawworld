@@ -1,17 +1,17 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   font-family: 'IBM Plex Sans', 'PingFang SC', 'Noto Sans SC', sans-serif;
   background:
-    radial-gradient(circle at top, rgba(95, 146, 255, 0.22), transparent 36%),
-    linear-gradient(180deg, #152037 0%, #09111e 68%, #050a13 100%);
-  color: #ebf2ff;
-  --surface-1: rgba(9, 15, 28, 0.92);
-  --surface-2: rgba(17, 27, 46, 0.86);
-  --surface-3: rgba(25, 40, 67, 0.78);
-  --border-strong: rgba(173, 210, 255, 0.22);
-  --accent: #7bd8ff;
-  --accent-strong: #7f9cff;
-  --shadow: 0 24px 60px rgba(4, 9, 18, 0.4);
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.74), transparent 34%),
+    linear-gradient(180deg, #efe7d8 0%, #e8decb 68%, #ddd0ba 100%);
+  color: #1d2430;
+  --surface-1: rgba(255, 249, 240, 0.94);
+  --surface-2: rgba(250, 244, 233, 0.92);
+  --surface-3: rgba(239, 229, 213, 0.94);
+  --border-strong: rgba(73, 60, 41, 0.16);
+  --accent: #d0643f;
+  --accent-strong: #2a7b74;
+  --shadow: 0 22px 54px rgba(78, 63, 42, 0.12);
 }
 
 * {
@@ -48,7 +48,7 @@ select {
   padding: 18px 22px;
   border: 1px solid var(--border-strong);
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(28, 40, 66, 0.92), rgba(12, 18, 31, 0.94));
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.92), rgba(244, 235, 222, 0.96));
   box-shadow: var(--shadow);
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   font-weight: 700;
@@ -62,8 +62,8 @@ select {
   border: 1px solid var(--border-strong);
   border-radius: 28px;
   background:
-    linear-gradient(180deg, rgba(28, 42, 73, 0.56), rgba(7, 11, 19, 0.9)),
-    linear-gradient(90deg, rgba(133, 198, 255, 0.06), transparent 40%);
+    linear-gradient(180deg, rgba(255, 252, 247, 0.82), rgba(235, 225, 209, 0.95)),
+    linear-gradient(90deg, rgba(226, 173, 97, 0.08), transparent 46%);
   box-shadow: var(--shadow);
 }
 
@@ -76,6 +76,8 @@ select {
   width: 100%;
   height: 100%;
   display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .scene-placards {
@@ -86,45 +88,46 @@ select {
 .scene-marker {
   position: absolute;
   transform: translate(-50%, -50%);
-  border-radius: 999px;
-  padding: 0.34rem 0.72rem;
-  border: 1px solid rgba(165, 213, 255, 0.24);
-  background: rgba(5, 11, 22, 0.74);
-  box-shadow: 0 14px 30px rgba(3, 8, 16, 0.35);
-  color: #d8e9ff;
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 0.22rem 0.52rem;
+  border: 2px solid rgba(73, 60, 41, 0.18);
+  background: rgba(255, 249, 240, 0.9);
+  box-shadow: 3px 3px 0 rgba(78, 63, 42, 0.12);
+  color: #2e3642;
+  font-family: 'IBM Plex Mono', 'IBM Plex Sans', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   pointer-events: none;
 }
 
 .scene-marker--title {
-  background: rgba(117, 156, 255, 0.2);
-  color: #f5f9ff;
+  background: rgba(208, 100, 63, 0.12);
+  color: #934527;
   font-size: 1rem;
   font-weight: 700;
 }
 
 .scene-marker--room {
-  background: rgba(10, 21, 38, 0.86);
+  background: rgba(238, 241, 235, 0.94);
 }
 
 .scene-marker--surface {
-  background: rgba(123, 216, 255, 0.12);
-  color: #9ae6ff;
+  background: rgba(214, 236, 232, 0.96);
+  color: #2a7b74;
 }
 
 .scene-marker--worker {
-  background: rgba(7, 17, 31, 0.9);
-  color: #f4faff;
-  border-color: rgba(210, 234, 255, 0.26);
+  background: rgba(29, 36, 48, 0.9);
+  color: #fff8ee;
+  border-color: rgba(29, 36, 48, 0.18);
   text-transform: none;
 }
 
 .scene-marker--delivery {
-  background: rgba(238, 165, 73, 0.18);
-  color: #fff3de;
-  border-color: rgba(255, 208, 135, 0.45);
+  background: rgba(255, 240, 196, 0.94);
+  color: #9b5a18;
+  border-color: rgba(192, 152, 52, 0.4);
   text-transform: none;
 }
 
@@ -134,20 +137,12 @@ select {
 }
 
 .scene-marker[type='button']:hover {
-  border-color: rgba(123, 216, 255, 0.6);
-  transform: translate(-50%, -50%) translateY(-2px);
+  border-color: rgba(42, 123, 116, 0.45);
+  filter: brightness(0.98);
 }
 
 .on-wall-display {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.4rem;
-  width: 220px;
-  border: 1px solid rgba(123, 216, 255, 0.36);
-  border-radius: 1rem;
-  padding: 0.9rem 1rem;
-  background: rgba(4, 10, 20, 0.72);
-  box-shadow: 0 18px 36px rgba(4, 8, 16, 0.34);
+  display: none;
 }
 
 .on-wall-display h2 {
@@ -179,9 +174,9 @@ select {
 
 .overlay-root {
   min-height: 112px;
-  border: 1px dashed rgba(171, 210, 255, 0.28);
+  border: 1px dashed rgba(121, 95, 63, 0.22);
   border-radius: 22px;
-  background: rgba(8, 14, 24, 0.68);
+  background: rgba(255, 250, 243, 0.72);
   padding: 1rem 1.1rem;
 }
 
@@ -191,7 +186,7 @@ select {
 
 .overlay-placeholder {
   margin: 0;
-  color: rgba(223, 236, 255, 0.7);
+  color: rgba(86, 74, 58, 0.72);
 }
 
 .drawer-shell {
@@ -235,10 +230,10 @@ select {
 
 .task-card,
 .detail-card {
-  border: 1px solid rgba(171, 210, 255, 0.16);
+  border: 1px solid rgba(121, 95, 63, 0.12);
   border-radius: 18px;
   padding: 0.85rem 0.95rem;
-  background: rgba(14, 24, 39, 0.72);
+  background: rgba(253, 249, 242, 0.88);
 }
 
 .task-card strong,
@@ -249,7 +244,7 @@ select {
 
 .task-card span,
 .detail-card dd {
-  color: rgba(223, 236, 255, 0.76);
+  color: rgba(83, 74, 62, 0.8);
 }
 
 .task-card--delivered {
@@ -266,7 +261,7 @@ select {
   font-size: 0.92rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #9fe7ff;
+  color: #2a7b74;
 }
 
 .register-list {
@@ -282,7 +277,7 @@ select {
   font-size: 0.84rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #9fe7ff;
+  color: #2a7b74;
 }
 
 .triage-card h3:first-of-type {
@@ -291,7 +286,7 @@ select {
 
 .triage-card p {
   margin: 0;
-  color: rgba(223, 236, 255, 0.82);
+  color: rgba(83, 74, 62, 0.84);
 }
 
 .detail-grid {
@@ -305,7 +300,7 @@ select {
   font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #93ddff;
+  color: #2a7b74;
   margin-bottom: 0.3rem;
 }
 
