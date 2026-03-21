@@ -6,7 +6,17 @@ export const OPENCLAW_USE_MOCK_EVENT = 'clawworld:use-mock'
 declare global {
   interface Window {
     __CLAWWORLD_BOOT_SESSION__?: OpenClawSessionPayload
+    __CLAWWORLD_ENABLE_GATEWAY__?: boolean
   }
+}
+
+export function shouldUseGatewayTransport(locationLike = window.location) {
+  if (typeof window.__CLAWWORLD_ENABLE_GATEWAY__ === 'boolean') {
+    return window.__CLAWWORLD_ENABLE_GATEWAY__
+  }
+
+  const params = new URLSearchParams(locationLike.search)
+  return params.get('transport') === 'gateway'
 }
 
 export function dispatchOpenClawSession(payload: OpenClawSessionPayload) {

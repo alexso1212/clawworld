@@ -3,6 +3,7 @@ import type { ClawworldRuntimeSession } from '../adapters/openclaw/types'
 import type { ClawworldStoreState } from './clawworldStore'
 
 export const selectRuntimeSession = (state: ClawworldStoreState) => state.session
+export const selectBoardTasks = (state: ClawworldStoreState) => state.boardTasks
 
 export function deriveBoardTasks(session: ClawworldRuntimeSession) {
   return [
@@ -35,9 +36,10 @@ export const deriveAbnormalities = (session: ClawworldRuntimeSession) =>
 
 export function deriveWallDisplayItems(
   session: ClawworldRuntimeSession,
+  openTaskCount = 1,
 ): OnWallDisplayItem[] {
   return [
-    { label: 'Open tasks', value: String(deriveBoardTasks(session).length).padStart(2, '0') },
+    { label: 'Open tasks', value: String(openTaskCount).padStart(2, '0') },
     { label: 'Budget state', value: session.reserve.state },
     { label: 'Bridge line', value: session.route.status },
   ]

@@ -12,8 +12,10 @@ Completed:
 - Added abnormality markers, register, and triage cards
 - Added an OpenClaw browser event bridge so live session payloads can hydrate the office state
 - Fixed the Zustand selector loop that was blanking the app and crashing AppShell tests
+- Added a local OpenClaw relay endpoint backed by `gateway call sessions.list`
+- Added an opt-in `?transport=gateway` mode that hydrates the office task board from real OpenClaw sessions
 
 TODO:
-- Connect the browser event bridge to a real OpenClaw/Hivemind transport instead of manual dispatch
-- Expand live session hydration beyond the single-session MVP shape
+- Expand live session hydration beyond the current session-list heuristic layer
+- Add richer task-world details for real sessions (preview, phase inference, per-task drilldown)
 - Reduce Phaser bundle size by splitting heavier scene code

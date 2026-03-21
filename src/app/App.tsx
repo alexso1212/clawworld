@@ -3,10 +3,10 @@ import { GameShell } from '../game/GameShell'
 import { useClawworldStore } from '../state/clawworldStore'
 import {
   deriveAbnormalities,
-  deriveBoardTasks,
   deriveCompletedNotes,
   derivePrivateTask,
   deriveWallDisplayItems,
+  selectBoardTasks,
   selectRuntimeSession,
 } from '../state/selectors'
 import { AbnormalityRegister } from '../ui/AbnormalityRegister'
@@ -28,11 +28,11 @@ export default function App() {
   const [activePanel, setActivePanel] = useState<ActivePanelId>(null)
   const [sceneView, setSceneView] = useState<SceneView>('main-office')
   const runtimeSession = useClawworldStore(selectRuntimeSession)
-  const publicTasks = deriveBoardTasks(runtimeSession)
+  const publicTasks = useClawworldStore(selectBoardTasks)
   const privateTask = derivePrivateTask(runtimeSession)
   const completedNotes = deriveCompletedNotes(runtimeSession)
   const abnormalityList = deriveAbnormalities(runtimeSession)
-  const wallDisplayItems = deriveWallDisplayItems(runtimeSession)
+  const wallDisplayItems = deriveWallDisplayItems(runtimeSession, publicTasks.length)
 
   const activeAbnormality =
     activePanel && activePanel.startsWith('abnormality-') && activePanel !== 'abnormality-register'
