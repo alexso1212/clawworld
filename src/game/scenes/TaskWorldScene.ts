@@ -31,36 +31,18 @@ export class TaskWorldScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.setBackgroundColor('#091222')
-
-    const graphics = this.add.graphics()
-    graphics.fillStyle(0x0d182b, 1)
-    graphics.fillRoundedRect(26, 22, 1228, 676, 32)
-    graphics.fillStyle(0x142540, 1)
-    graphics.fillRoundedRect(56, 84, 1168, 586, 30)
-
-    this.add.text(86, 60, `Task World: ${this.runtimeSession.title}`, {
-      color: '#e7f1ff',
-      fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
-      fontSize: '24px',
-      fontStyle: '700',
-    })
-
-    this.add.text(886, 92, 'Delivery Rail', {
-      color: '#9fe7ff',
-      fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
-      fontSize: '16px',
-      fontStyle: '700',
-    })
+    this.drawBackdrop()
+    this.drawWarRoomTrim()
+    this.drawDeliveryTube()
 
     const slots = [
-      { x: 110, y: 150 },
-      { x: 390, y: 150 },
-      { x: 670, y: 150 },
-      { x: 950, y: 150 },
-      { x: 210, y: 410 },
-      { x: 530, y: 410 },
-      { x: 850, y: 410 },
+      { x: 110, y: 160 },
+      { x: 390, y: 160 },
+      { x: 670, y: 160 },
+      { x: 950, y: 160 },
+      { x: 210, y: 418 },
+      { x: 530, y: 418 },
+      { x: 850, y: 418 },
     ]
 
     this.runtimeSession.taskWorld.rooms.forEach((room, index) => {
@@ -68,13 +50,17 @@ export class TaskWorldScene extends Phaser.Scene {
       new TaskRoomPrefab(this, slot.x, slot.y, room.label).draw()
     })
 
+    this.drawCenterTable()
+    this.drawCableRuns()
+    this.drawProjectProps()
+
     this.deliverySlip = this.add.text(880, 128, `Delivered: ${this.runtimeSession.title}`, {
-      color: '#f8fdff',
-      fontFamily: 'IBM Plex Sans, PingFang SC, sans-serif',
-      fontSize: '18px',
+      color: '#4c3818',
+      fontFamily: 'IBM Plex Mono, IBM Plex Sans, PingFang SC, sans-serif',
+      fontSize: '16px',
       fontStyle: '700',
-      backgroundColor: '#e7a34a',
-      padding: { left: 12, right: 12, top: 8, bottom: 8 },
+      backgroundColor: '#f2d37a',
+      padding: { left: 10, right: 10, top: 6, bottom: 6 },
     })
     this.deliverySlip.setVisible(false)
 
@@ -126,6 +112,110 @@ export class TaskWorldScene extends Phaser.Scene {
 
   update(_time: number, delta: number) {
     this.step(delta)
+  }
+
+  private drawBackdrop() {
+    this.cameras.main.setBackgroundColor('#e8dec9')
+
+    const graphics = this.add.graphics()
+    graphics.fillStyle(0xf2eadb, 1)
+    graphics.fillRoundedRect(26, 22, 1228, 676, 12)
+    graphics.fillStyle(0xe5d4b7, 0.85)
+    graphics.fillRoundedRect(48, 48, 1184, 628, 10)
+    graphics.fillStyle(0xfff8ea, 1)
+    graphics.fillRoundedRect(76, 96, 1128, 544, 8)
+    graphics.fillStyle(0xebdeca, 1)
+    graphics.fillRect(90, 110, 1100, 500)
+    graphics.lineStyle(1, 0xdfceb3, 0.55)
+    for (let x = 90; x <= 1180; x += 40) {
+      graphics.lineBetween(x, 110, x, 610)
+    }
+    for (let y = 110; y <= 610; y += 40) {
+      graphics.lineBetween(90, y, 1190, y)
+    }
+  }
+
+  private drawWarRoomTrim() {
+    const graphics = this.add.graphics()
+    graphics.fillStyle(0xd4be97, 0.95)
+    graphics.fillRoundedRect(96, 116, 1096, 14, 2)
+    graphics.fillRoundedRect(96, 596, 1096, 14, 2)
+    graphics.fillRoundedRect(96, 130, 16, 466, 2)
+    graphics.fillRoundedRect(1176, 130, 16, 466, 2)
+
+    graphics.fillStyle(0xf7ecd4, 1)
+    graphics.fillRoundedRect(116, 132, 22, 22, 2)
+    graphics.fillRoundedRect(1150, 132, 22, 22, 2)
+    graphics.fillRoundedRect(116, 570, 22, 22, 2)
+    graphics.fillRoundedRect(1150, 570, 22, 22, 2)
+  }
+
+  private drawDeliveryTube() {
+    const graphics = this.add.graphics()
+    graphics.fillStyle(0xceb388, 1)
+    graphics.fillRoundedRect(828, 88, 280, 12, 2)
+    graphics.fillRoundedRect(1084, 88, 12, 92, 2)
+    graphics.fillRoundedRect(1030, 170, 66, 12, 2)
+    graphics.fillStyle(0xf4c34f, 1)
+    graphics.fillRoundedRect(1048, 166, 30, 20, 2)
+  }
+
+  private drawCenterTable() {
+    const graphics = this.add.graphics()
+    graphics.fillStyle(0xd5b58f, 0.4)
+    graphics.fillRoundedRect(470, 332, 340, 18, 2)
+    graphics.fillStyle(0xe7d4bb, 1)
+    graphics.fillRoundedRect(492, 238, 296, 108, 4)
+    graphics.fillStyle(0xfff5e6, 1)
+    graphics.fillRoundedRect(520, 254, 240, 76, 3)
+    graphics.fillStyle(0xd0643f, 1)
+    graphics.fillRoundedRect(550, 272, 54, 8, 1)
+    graphics.fillRoundedRect(614, 272, 46, 8, 1)
+    graphics.fillRoundedRect(570, 292, 120, 6, 1)
+    graphics.fillRoundedRect(694, 286, 22, 18, 1)
+    graphics.fillStyle(0x89b481, 1)
+    graphics.fillRoundedRect(512, 232, 18, 18, 2)
+    graphics.fillRoundedRect(748, 232, 18, 18, 2)
+  }
+
+  private drawCableRuns() {
+    const graphics = this.add.graphics()
+    graphics.lineStyle(6, 0xcb7f55, 0.38)
+    graphics.lineBetween(220, 472, 468, 472)
+    graphics.lineBetween(468, 472, 468, 538)
+    graphics.lineBetween(468, 538, 740, 538)
+    graphics.lineBetween(740, 538, 740, 476)
+    graphics.lineBetween(740, 476, 956, 476)
+
+    graphics.lineStyle(4, 0xf4c34f, 0.45)
+    graphics.lineBetween(238, 486, 446, 486)
+    graphics.lineBetween(446, 486, 446, 548)
+    graphics.lineBetween(446, 548, 918, 548)
+  }
+
+  private drawProjectProps() {
+    const graphics = this.add.graphics()
+
+    graphics.fillStyle(0x89b481, 1)
+    graphics.fillRoundedRect(120, 546, 18, 22, 2)
+    graphics.fillRoundedRect(1134, 518, 18, 24, 2)
+    graphics.fillRoundedRect(1100, 214, 14, 18, 2)
+
+    graphics.fillStyle(0xd4a46c, 1)
+    graphics.fillRoundedRect(116, 568, 24, 8, 2)
+    graphics.fillRoundedRect(1130, 542, 24, 8, 2)
+    graphics.fillRoundedRect(1096, 232, 22, 8, 2)
+
+    graphics.fillStyle(0xf7e7ca, 1)
+    graphics.fillRoundedRect(172, 606, 32, 6, 1)
+    graphics.fillRoundedRect(220, 606, 32, 6, 1)
+    graphics.fillRoundedRect(268, 606, 32, 6, 1)
+
+    graphics.fillStyle(0xd0643f, 0.2)
+    graphics.fillRoundedRect(118, 268, 200, 10, 2)
+    graphics.fillRoundedRect(954, 268, 198, 10, 2)
+    graphics.fillRoundedRect(214, 528, 214, 10, 2)
+    graphics.fillRoundedRect(854, 528, 214, 10, 2)
   }
 
   private step(delta: number) {
@@ -206,7 +296,6 @@ export class TaskWorldScene extends Phaser.Scene {
           variant: 'room',
         },
         { id: 'task-room-memory', label: 'Memory Archive', x: 80, y: 63, variant: 'room' },
-        ...this.workers.map((worker) => worker.prefab.toMarker()),
         ...(this.deliveryVisible
           ? [
               {

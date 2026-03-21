@@ -26,8 +26,12 @@ Completed:
 - Shortened the default hint copy so the shell reads more like a game prompt and less like documentation
 - Removed the redundant in-scene “Main Office” marker from the runtime snapshot
 - Added more lived-in lobby props and trim so the main office reads more like a staffed lounge instead of a schematic floorplan
+- Commissioned Gemini Ultra for a dedicated task-world art-direction brief and saved it as `docs/2026-03-22-task-world-art-direction.md`
+- Rebuilt the task world from a dark dashboard into a warmer project war-room layout with room-specific props
+- Removed worker name placards from the task-world runtime snapshot so the scene reads more like a room and less like a personnel chart
 
 TODO:
+- Route the next major art-direction pass through Gemini Ultra before reworking the task world or any new scene
 - Push the main office further toward a true pixel-lobby feel with more prop detail and less schematic spacing
 - Add selective hover/focus labels so more interaction text can stay hidden until needed
 - Commission the three concept images from Gemini before visual refactor work starts
