@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clawworld 图纸墙</title>
+    <style>
+      :root {
+        --paper: #f5f0e6;
+        --ink: #1d2430;
+        --muted: #576171;
+        --line: #c8baa0;
+        --accent: #d0643f;
+        --accent-soft: #f0d1bf;
+        --teal: #2a7b74;
+        --panel: rgba(255, 251, 243, 0.86);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top, rgba(255, 255, 255, 0.75), transparent 38%),
+          linear-gradient(180deg, #efe8db 0%, #e7dece 100%);
+        color: var(--ink);
+        font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      }
+
+      .shell {
+        width: min(1320px, calc(100vw - 48px));
+        margin: 0 auto;
+        padding: 40px 0 56px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 20px;
+        align-items: start;
+        margin-bottom: 28px;
+      }
+
+      .hero-card,
+      .note-card,
+      .board {
+        border: 1px solid rgba(29, 36, 48, 0.12);
+        border-radius: 24px;
+        background: var(--panel);
+        box-shadow: 0 18px 50px rgba(29, 36, 48, 0.08);
+        backdrop-filter: blur(6px);
+      }
+
+      .hero-card {
+        padding: 28px 30px 26px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(208, 100, 63, 0.1);
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 12px;
+        font-size: clamp(34px, 4vw, 56px);
+        line-height: 1.06;
+        letter-spacing: -0.03em;
+      }
+
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+        font-size: 16px;
+      }
+
+      .note-card {
+        padding: 22px 22px 18px;
+      }
+
+      .note-card h2 {
+        margin: 0 0 14px;
+        font-size: 18px;
+      }
+
+      .note-card ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .boards {
+        display: grid;
+        gap: 22px;
+      }
+
+      .board {
+        overflow: hidden;
+      }
+
+      .board-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: start;
+        padding: 22px 24px 18px;
+        border-bottom: 1px solid rgba(29, 36, 48, 0.1);
+      }
+
+      .board-head h3 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        line-height: 1.1;
+      }
+
+      .board-head p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+        max-width: 780px;
+      }
+
+      .tag {
+        flex: 0 0 auto;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(42, 123, 116, 0.1);
+        color: var(--teal);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .board-body {
+        padding: 14px;
+      }
+
+      .board img {
+        display: block;
+        width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(29, 36, 48, 0.08);
+        background: #fffdf9;
+      }
+
+      .foot {
+        margin-top: 24px;
+        padding: 18px 20px;
+        border-radius: 18px;
+        background: rgba(29, 36, 48, 0.05);
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .foot a {
+        color: var(--accent);
+      }
+
+      @media (max-width: 960px) {
+        .shell {
+          width: min(100vw - 24px, 1320px);
+          padding-top: 20px;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .board-head {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <article class="hero-card">
+          <div class="eyebrow">Clawworld Blueprint Wall</div>
+          <h1>先看空间，再谈美术</h1>
+          <p>
+            这不是最终成品图，而是大厅重做前的施工图。目标很直接：把现在那种“发光说明书”
+            拆掉，换成一个能走进去、能看懂、能继续长的 AI 办公室。三张图分别解决三件事：总厅怎么摆、会议室怎么讲故事、后勤区怎么把状态藏进物件。
+          </p>
+        </article>
+        <aside class="note-card">
+          <h2>这套图纸在回答什么</h2>
+          <ul>
+            <li>主厅第一眼看哪里，动线怎么走</li>
+            <li>哪些信息该放进家具，不该变成悬浮文字</li>
+            <li>会议室、财务室、工具柜怎么一眼看出功能</li>
+            <li>后面找 Gemini Ultra 出图时，哪些东西不能跑偏</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="boards">
+        <article class="board">
+          <header class="board-head">
+            <div>
+              <h3>A. 主大厅总平面</h3>
+              <p>
+                这是整层办公室的骨架。中心用环形协作区做视觉锚点，入口、任务板、会议室、工位、老板办公室和后勤走廊都围着它转。以后重做主场景，先照这张走。
+              </p>
+            </div>
+            <div class="tag">总平面 / 动线 / 焦点</div>
+          </header>
+          <div class="board-body">
+            <img src="/blueprints/main-office-blueprint.svg" alt="Clawworld 主大厅总平面图" />
+          </div>
+        </article>
+
+        <article class="board">
+          <header class="board-head">
+            <div>
+              <h3>B. 会议室白板近景</h3>
+              <p>
+                这张图只管一件事：怎么让“会议室白板”像一个刚开完会的地方，而不是网页里的按钮。重点是桌面痕迹、草图、杯子、椅子和玻璃反光。
+              </p>
+            </div>
+            <div class="tag">近景 / 物件语言 / 生活痕迹</div>
+          </header>
+          <div class="board-body">
+            <img src="/blueprints/meeting-room-blueprint.svg" alt="Clawworld 会议室白板近景图" />
+          </div>
+        </article>
+
+        <article class="board">
+          <header class="board-head">
+            <div>
+              <h3>C. 财务室与后勤走廊近景</h3>
+              <p>
+                这张图把“API 余额、工具柜、后勤状态”翻成现实里的门、灯、柜子和机柜。以后异常系统和财务状态，主要就从这一带长出来。
+              </p>
+            </div>
+            <div class="tag">后勤区 / 状态灯 / 工具柜</div>
+          </header>
+          <div class="board-body">
+            <img src="/blueprints/support-corridor-blueprint.svg" alt="Clawworld 财务室与后勤走廊近景图" />
+          </div>
+        </article>
+      </section>
+
+      <footer class="foot">
+        配套文字施工单在
+        <a href="/../docs/2026-03-22-office-art-direction.md">docs/2026-03-22-office-art-direction.md</a>
+        。如果这个链接在浏览器里不好点，直接去仓库文件里看同名文档。
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #fbf7ef; }
+      .frame { fill: #fffdf8; stroke: #1d2430; stroke-width: 3; }
+      .guide { stroke: #d7ccb8; stroke-width: 1.5; stroke-dasharray: 8 12; }
+      .wall { fill: #f4ecdf; stroke: #1d2430; stroke-width: 2.4; }
+      .glass { fill: rgba(125, 167, 191, 0.18); stroke: #2a7b74; stroke-width: 2.2; }
+      .accent { fill: #f6dfd2; stroke: #d0643f; stroke-width: 2.2; }
+      .soft { fill: #ede4d6; stroke: #1d2430; stroke-width: 1.8; }
+      .teal { fill: #d6ece8; stroke: #2a7b74; stroke-width: 2.2; }
+      .dark { fill: #1d2430; }
+      .paper { fill: #f7f0e4; stroke: #cdbfa8; stroke-width: 1.6; }
+      .label { font: 700 28px 'PingFang SC', 'Noto Sans SC', sans-serif; fill: #1d2430; }
+      .small { font: 500 20px 'PingFang SC', 'Noto Sans SC', sans-serif; fill: #47505d; }
+      .tiny { font: 500 17px 'PingFang SC', 'Noto Sans SC', sans-serif; fill: #576171; }
+      .capsule { fill: #fff7ef; stroke: #1d2430; stroke-width: 1.8; }
+      .arrow { stroke: #d0643f; stroke-width: 3; stroke-linecap: round; }
+      .note { fill: #fff6d9; stroke: #c09834; stroke-width: 1.6; }
+      .plant { fill: #87b27d; stroke: #3f6f49; stroke-width: 1.5; }
+      .monitor { fill: #98d5e8; stroke: #2b6475; stroke-width: 1.2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10" fill="#d0643f" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1600" height="980" />
+  <rect x="28" y="28" width="1544" height="924" rx="32" class="frame" />
+  <path d="M86 150H1512" class="guide" />
+  <path d="M86 820H1512" class="guide" />
+  <path d="M250 120V878" class="guide" />
+  <path d="M832 120V878" class="guide" />
+
+  <text x="92" y="95" class="label">Clawworld 主大厅总平面</text>
+  <text x="92" y="128" class="small">目标：先建立焦点、动线和功能分区，再往里面长细节和动画。</text>
+
+  <rect x="94" y="184" width="1390" height="698" rx="34" class="wall" />
+  <rect x="124" y="214" width="210" height="148" rx="24" class="paper" />
+  <text x="148" y="256" class="label" font-size="22">入口 / 前台</text>
+  <text x="148" y="292" class="small">角色从这里落地，先看到主厅，再被引向任务板和中央区。</text>
+  <rect x="154" y="312" width="92" height="20" rx="10" class="soft" />
+  <rect x="154" y="340" width="56" height="10" rx="5" class="soft" />
+  <circle cx="278" cy="285" r="28" class="teal" />
+  <circle cx="278" cy="285" r="8" class="dark" />
+
+  <rect x="382" y="264" width="448" height="300" rx="38" class="accent" />
+  <text x="420" y="304" class="label">中央环形协作区</text>
+  <text x="420" y="338" class="small">大厅的视觉锚点。人、任务和视线都围着它转。</text>
+  <ellipse cx="606" cy="416" rx="148" ry="96" fill="#fff8ee" stroke="#d0643f" stroke-width="2.4" />
+  <ellipse cx="606" cy="416" rx="72" ry="44" fill="#fbf7ef" stroke="#d0643f" stroke-width="2" />
+  <circle cx="530" cy="416" r="18" class="dark" />
+  <circle cx="606" cy="344" r="18" class="dark" />
+  <circle cx="682" cy="416" r="18" class="dark" />
+  <circle cx="606" cy="488" r="18" class="dark" />
+
+  <rect x="914" y="228" width="294" height="188" rx="24" class="glass" />
+  <text x="948" y="266" class="label" font-size="24">玻璃会议室</text>
+  <text x="948" y="300" class="small">白板藏在里面，不漂浮到主画面。</text>
+  <rect x="958" y="324" width="172" height="58" rx="10" fill="#f9fcff" stroke="#2a7b74" stroke-width="1.8" />
+  <path d="M980 350H1096" class="arrow" marker-end="url(#arrowhead)" />
+  <circle cx="1138" cy="351" r="10" fill="#2a7b74" />
+
+  <rect x="1246" y="212" width="186" height="154" rx="22" class="soft" />
+  <text x="1272" y="250" class="label" font-size="22">老板办公室</text>
+  <text x="1272" y="282" class="tiny">私人白板藏在这里</text>
+  <rect x="1286" y="302" width="98" height="32" rx="8" fill="#fff" stroke="#1d2430" stroke-width="1.5" />
+
+  <rect x="936" y="472" width="454" height="178" rx="28" class="teal" />
+  <text x="968" y="512" class="label">开放工位区</text>
+  <text x="968" y="546" class="small">AI 同事平时待在这里。状态要靠屏幕亮暗、杯子和桌面物件说话。</text>
+  <g>
+    <rect x="980" y="578" width="84" height="18" rx="6" class="soft" />
+    <rect x="1084" y="578" width="84" height="18" rx="6" class="soft" />
+    <rect x="1188" y="578" width="84" height="18" rx="6" class="soft" />
+    <rect x="1292" y="578" width="54" height="18" rx="6" class="soft" />
+    <rect x="996" y="560" width="52" height="18" rx="4" class="monitor" />
+    <rect x="1100" y="560" width="52" height="18" rx="4" class="monitor" />
+    <rect x="1204" y="560" width="52" height="18" rx="4" class="monitor" />
+    <rect x="1302" y="560" width="34" height="18" rx="4" class="monitor" />
+  </g>
+
+  <rect x="124" y="606" width="272" height="134" rx="22" class="note" />
+  <text x="154" y="646" class="label" font-size="24">任务板 / 收发区</text>
+  <text x="154" y="678" class="small">任务卡贴在真实板子上，平时只是场景里的一个物件。</text>
+  <rect x="156" y="696" width="44" height="24" rx="4" fill="#f6ce62" stroke="#1d2430" stroke-width="1.2" />
+  <rect x="208" y="696" width="44" height="24" rx="4" fill="#f0a167" stroke="#1d2430" stroke-width="1.2" />
+  <rect x="260" y="696" width="44" height="24" rx="4" fill="#d0643f" stroke="#1d2430" stroke-width="1.2" />
+
+  <rect x="440" y="642" width="312" height="156" rx="24" class="soft" />
+  <text x="472" y="682" class="label" font-size="24">茶水吧台</text>
+  <text x="472" y="714" class="small">留一点烟火气：杯子、蒸汽、零食、站着说话的人。</text>
+  <rect x="488" y="738" width="184" height="22" rx="8" fill="#dbc9af" stroke="#1d2430" stroke-width="1.2" />
+  <circle cx="522" cy="731" r="12" fill="#fff6ef" stroke="#1d2430" stroke-width="1.2" />
+  <path d="M522 710C518 700 526 698 522 688" class="arrow" />
+
+  <rect x="900" y="696" width="520" height="120" rx="22" class="paper" />
+  <text x="936" y="736" class="label" font-size="24">后勤走廊入口</text>
+  <text x="936" y="768" class="small">这里通向财务室、工具柜、服务器机柜。异常主要从这条线冒出来。</text>
+  <path d="M1278 756H1390" class="arrow" marker-end="url(#arrowhead)" />
+
+  <rect x="1120" y="106" width="308" height="82" rx="18" class="capsule" />
+  <text x="1150" y="142" class="label" font-size="22">墙上真实大屏</text>
+  <text x="1150" y="170" class="tiny">只能挂在墙上，不能变成霸屏 UI</text>
+
+  <rect x="1118" y="186" width="244" height="20" rx="10" fill="#1d2430" />
+  <circle cx="1252" cy="184" r="8" fill="#d0643f" />
+
+  <circle cx="106" cy="892" r="14" class="plant" />
+  <circle cx="132" cy="892" r="14" class="plant" />
+  <circle cx="1452" cy="892" r="14" class="plant" />
+  <circle cx="1478" cy="892" r="14" class="plant" />
+
+  <rect x="1146" y="846" width="276" height="74" rx="18" class="capsule" />
+  <text x="1172" y="882" class="label" font-size="22">一句总原则</text>
+  <text x="1172" y="908" class="tiny">主画面先给空间和物件，再让信息慢慢从里面长出来。</text>
+</svg>

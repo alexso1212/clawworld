@@ -16,9 +16,12 @@ Completed:
 - Added an opt-in `?transport=gateway` mode that hydrates the office task board from real OpenClaw sessions
 - Audited the current office scene against the target “Soul Knight lobby” feeling
 - Pulled a Gemini-generated office art-direction brief and saved it into `docs/2026-03-22-office-art-direction.md`
+- Created a browser-viewable blueprint wall at `public/blueprints/index.html`
+- Added three SVG construction sheets for the main office, meeting room, and support corridor
 
 TODO:
 - Rebuild the main office scene against the new art-direction brief before adding more features
+- Use the new blueprint wall as the layout source of truth for the lobby visual refactor
 - Replace floating labels with object-first interaction cues and environmental state signals
 - Commission the three concept images from Gemini before visual refactor work starts
 - Expand live session hydration beyond the current session-list heuristic layer

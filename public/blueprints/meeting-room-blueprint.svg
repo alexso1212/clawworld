@@ -1,0 +1,68 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #fbf7ef; }
+      .frame { fill: #fffdf8; stroke: #1d2430; stroke-width: 3; }
+      .wall { fill: #f2ece1; stroke: #1d2430; stroke-width: 2.4; }
+      .glass { fill: rgba(135, 195, 220, 0.18); stroke: #2a7b74; stroke-width: 2; }
+      .accent { fill: #f8e5dc; stroke: #d0643f; stroke-width: 2; }
+      .soft { fill: #e7ddce; stroke: #1d2430; stroke-width: 1.6; }
+      .table { fill: #ece1d1; stroke: #6f5844; stroke-width: 2.2; }
+      .label { font: 700 28px 'PingFang SC', 'Noto Sans SC', sans-serif; fill: #1d2430; }
+      .small { font: 500 20px 'PingFang SC', 'Noto Sans SC', sans-serif; fill: #576171; }
+      .tiny { font: 500 17px 'PingFang SC', 'Noto Sans SC', sans-serif; fill: #66707e; }
+      .line { stroke: #d0643f; stroke-width: 4; stroke-linecap: round; }
+      .note { fill: #fff3bf; stroke: #bd8d2b; stroke-width: 1.5; }
+      .screen { fill: #9fd8ea; stroke: #2b6475; stroke-width: 1.5; }
+      .capsule { fill: #fff7ef; stroke: #1d2430; stroke-width: 1.8; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="980" />
+  <rect x="28" y="28" width="1544" height="924" rx="32" class="frame" />
+
+  <text x="92" y="95" class="label">会议室白板区近景图</text>
+  <text x="92" y="128" class="small">重点不是“白板按钮”，而是“刚开完会的房间味道”。</text>
+
+  <rect x="102" y="176" width="1394" height="710" rx="30" class="wall" />
+  <rect x="120" y="192" width="1360" height="674" rx="26" class="glass" />
+
+  <rect x="214" y="218" width="434" height="234" rx="22" fill="#f9fcff" stroke="#2a7b74" stroke-width="2.4" />
+  <text x="244" y="256" class="label">智能白板</text>
+  <text x="244" y="288" class="small">草图、箭头、便签，比整齐的说明文字更像真的开过会。</text>
+  <path d="M262 340H432" class="line" />
+  <path d="M434 340L466 320" class="line" />
+  <path d="M288 372H362" class="line" />
+  <path d="M398 372H536" class="line" />
+  <path d="M536 372L578 404" class="line" />
+  <path d="M300 402H420" class="line" />
+  <path d="M452 402H530" class="line" />
+  <rect x="538" y="314" width="54" height="42" rx="6" class="note" />
+  <rect x="550" y="364" width="54" height="42" rx="6" class="note" />
+  <rect x="242" y="426" width="24" height="10" rx="4" class="soft" />
+  <rect x="274" y="426" width="24" height="10" rx="4" class="soft" />
+  <rect x="306" y="426" width="24" height="10" rx="4" class="soft" />
+
+  <path d="M560 548L1032 492L1260 666L794 726Z" class="table" />
+  <rect x="698" y="522" width="132" height="84" rx="10" class="screen" />
+  <rect x="930" y="566" width="132" height="84" rx="10" class="screen" />
+  <circle cx="860" cy="590" r="22" fill="#fff7ef" stroke="#6f5844" stroke-width="1.6" />
+  <circle cx="1118" cy="634" r="22" fill="#fff7ef" stroke="#6f5844" stroke-width="1.6" />
+  <rect x="1124" y="524" width="28" height="74" rx="10" fill="#1d2430" />
+  <rect x="1186" y="744" width="132" height="42" rx="18" class="accent" transform="rotate(-14 1186 744)" />
+
+  <g>
+    <rect x="670" y="620" width="82" height="82" rx="18" class="soft" transform="rotate(-14 670 620)" />
+    <rect x="850" y="712" width="82" height="82" rx="18" class="soft" transform="rotate(10 850 712)" />
+    <rect x="1124" y="672" width="82" height="82" rx="18" class="soft" transform="rotate(18 1124 672)" />
+    <rect x="1018" y="476" width="82" height="82" rx="18" class="soft" transform="rotate(-8 1018 476)" />
+  </g>
+
+  <rect x="1222" y="238" width="202" height="112" rx="20" class="capsule" />
+  <text x="1248" y="278" class="label" font-size="22">近景原则</text>
+  <text x="1248" y="308" class="tiny">1. 让桌面讲故事</text>
+  <text x="1248" y="332" class="tiny">2. 让反光和杂乱留下人味</text>
+
+  <rect x="180" y="760" width="1214" height="86" rx="20" class="capsule" />
+  <text x="214" y="802" class="small">这里不需要大段文字。白板草图、半杯咖啡、偏开的椅子，本身就是“刚刚发生了什么”的说明。</text>
+</svg>
