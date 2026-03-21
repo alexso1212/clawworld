@@ -32,7 +32,7 @@ export class OfficePrefab {
         'archive',
         'finance',
       ],
-      portals: [],
+      portals: ['portal-website-refresh'],
       markers: [
         { id: 'title-main-office', label: 'Main Office', x: 8, y: 10, variant: 'title' },
         { id: 'room-open-office', label: 'Open Office', x: 18, y: 36, variant: 'room' },
@@ -57,6 +57,14 @@ export class OfficePrefab {
         { id: 'room-review', label: 'Review Desk', x: 58, y: 70, variant: 'room' },
         { id: 'room-archive', label: 'Archive Room', x: 82, y: 70, variant: 'room' },
         { id: 'room-finance', label: 'Finance Room', x: 23, y: 74, variant: 'room' },
+        {
+          id: 'portal-website-refresh',
+          label: 'Portal: Website Refresh',
+          x: 23,
+          y: 62,
+          variant: 'surface',
+          interactive: true,
+        },
         { id: 'surface-wall-display', label: 'On-Wall Display', x: 83, y: 14, variant: 'surface' },
       ],
     }
@@ -122,6 +130,7 @@ export class OfficePrefab {
     graphics.fillStyle(0x193155, 1)
     graphics.fillRoundedRect(550, 114, 246, 160, 18)
     graphics.fillRoundedRect(822, 114, 260, 160, 18)
+    graphics.fillRoundedRect(122, 430, 360, 52, 16)
     graphics.fillRoundedRect(150, 510, 280, 124, 18)
     graphics.fillRoundedRect(508, 510, 242, 124, 18)
     graphics.fillRoundedRect(792, 510, 290, 124, 18)
@@ -177,6 +186,7 @@ export class OfficePrefab {
     this.scene.add.text(872, 206, 'Boss Office', subtleStyle)
     this.scene.add.text(844, 146, 'Boss Office Whiteboard', subtleStyle)
     this.scene.add.text(1016, 102, 'On-Wall Display', subtleStyle)
+    this.scene.add.text(152, 446, 'Portal: Website Refresh', subtleStyle)
     this.scene.add.text(212, 580, 'Finance Room', subtleStyle)
     this.scene.add.text(560, 580, 'Review Desk', subtleStyle)
     this.scene.add.text(846, 580, 'Archive Room', subtleStyle)

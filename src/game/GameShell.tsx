@@ -19,6 +19,12 @@ function describeSnapshot(snapshot: SceneSnapshot) {
     title: snapshot.title,
     rooms: snapshot.rooms,
     portals: snapshot.portals,
+    markers: snapshot.markers.map((marker) => ({
+      label: marker.label,
+      variant: marker.variant,
+      x: Number(marker.x.toFixed(2)),
+      y: Number(marker.y.toFixed(2)),
+    })),
     coordinateSystem: 'origin top-left; x grows right; y grows down',
   })
 }
@@ -48,10 +54,11 @@ function MarkerTag({ marker }: { marker: SceneMarker }) {
 }
 
 type GameShellProps = {
-  onSurfaceSelect?: (surfaceId: string) => void
+  onMarkerSelect?: (markerId: string) => void
+  sceneView: 'main-office' | 'task-world'
 }
 
-export function GameShell({ onSurfaceSelect }: GameShellProps) {
+export function GameShell({ onMarkerSelect, sceneView }: GameShellProps) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const [bridge] = useState(() => createSceneBridge())
   const [snapshot, setSnapshot] = useState<SceneSnapshot>(() => bridge.getSnapshot())
@@ -83,7 +90,7 @@ export function GameShell({ onSurfaceSelect }: GameShellProps) {
         return
       }
 
-      const game = createGame(hostRef.current, bridge)
+      const game = createGame(hostRef.current, bridge, sceneView)
       destroyGame = () => {
         game.destroy(true)
       }
@@ -94,7 +101,7 @@ export function GameShell({ onSurfaceSelect }: GameShellProps) {
       bridge.resetAdvanceHandler()
       destroyGame?.()
     }
-  }, [bridge])
+  }, [bridge, sceneView])
 
   return (
     <section
@@ -103,20 +110,22 @@ export function GameShell({ onSurfaceSelect }: GameShellProps) {
       data-testid="scene-host"
     >
       <div className="scene-canvas" ref={hostRef} />
-      <OnWallDisplay
-        items={[
-          { label: 'Open tasks', value: '03' },
-          { label: 'Budget state', value: 'Stable' },
-          { label: 'Bridge line', value: 'Healthy' },
-        ]}
-      />
+      {sceneView === 'main-office' ? (
+        <OnWallDisplay
+          items={[
+            { label: 'Open tasks', value: '03' },
+            { label: 'Budget state', value: 'Stable' },
+            { label: 'Bridge line', value: 'Healthy' },
+          ]}
+        />
+      ) : null}
       <div className="scene-placards">
         {snapshot.markers.map((marker) => (
           <MarkerTag
             key={marker.id}
             marker={{
               ...marker,
-              onSelect: onSurfaceSelect,
+              onSelect: onMarkerSelect,
             }}
           />
         ))}

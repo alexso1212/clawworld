@@ -1,4 +1,4 @@
-export type SceneMarkerVariant = 'title' | 'room' | 'surface'
+export type SceneMarkerVariant = 'title' | 'room' | 'surface' | 'worker' | 'delivery'
 
 export type SceneMarker = {
   id: string

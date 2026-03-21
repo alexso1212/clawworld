@@ -9,6 +9,7 @@ type WhiteboardDrawerProps = {
   title: string
   subtitle: string
   tasks: WhiteboardTask[]
+  completedNotes: string[]
   onClose: () => void
 }
 
@@ -16,6 +17,7 @@ export function WhiteboardDrawer({
   title,
   subtitle,
   tasks,
+  completedNotes,
   onClose,
 }: WhiteboardDrawerProps) {
   return (
@@ -40,6 +42,21 @@ export function WhiteboardDrawer({
           </li>
         ))}
       </ul>
+
+      <section className="completed-lane">
+        <h3>Completed Lane</h3>
+        {completedNotes.length ? (
+          <ul className="task-list">
+            {completedNotes.map((note) => (
+              <li className="task-card task-card--delivered" key={note}>
+                <strong>{note}</strong>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="overlay-placeholder">No delivery slips posted yet.</p>
+        )}
+      </section>
     </aside>
   )
 }
