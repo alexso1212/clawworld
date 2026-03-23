@@ -48,20 +48,14 @@ Completed:
 - Added a deploy-safe gateway guard so `?transport=gateway` stays local-only on static hosted demos unless explicitly overridden
 - Added `pixelAtlasManifest` from the existing sprite catalog, which unblocked the old atlas test and brought the full Vitest suite back to green
 - Replaced the Vite starter README with project docs and added baseline GitHub Actions + Vercel config for source-control/deploy readiness
+- Hard-switched the default app from the custom hybrid shell to the upstream `ClawLibrary` runtime, vendoring its Phaser entrypoint, data packs, runtime systems, scripts, and public assets directly into this repo
+- Added base-aware asset path remapping plus a production-safe static snapshot fallback so hosted demos and `/clawworld/` subpath builds render the upstream game without hitting missing local `/api/openclaw/*` routes
+- Verified the upstream-reset build with Vitest, a `/clawworld/` production build, and Playwright screenshots in `output/web-game/upstream-pages-check-2/`
 
 TODO:
-- Route the next major art-direction pass through Gemini Ultra before reworking the task world or any new scene
-- Push the main office further toward a true pixel-lobby feel with richer shading and less washed-out negative space
-- Replace the current vector-built props with real sprite sheets / atlas pieces once the silhouettes are locked
-- Fold the Gemini asset manifest into a true atlas/spritesheet pipeline instead of generated canvas textures
-- Push more functions into object affordances so even the remaining hover outlines can get subtler
-- Commission the three concept images from Gemini before visual refactor work starts
-- Expand live session hydration beyond the current session-list heuristic layer
-- Add richer task-world details for real sessions (preview, phase inference, per-task drilldown)
+- Decide how much of the old `office/task-world` prototype survives as optional legacy routes versus being retired outright
+- Map our current gateway/live session semantics into the upstream room/work-zone model instead of keeping the static snapshot as the hosted default forever
+- Reintroduce Clawworld-specific product language and interactions on top of the upstream game without re-splitting the app into a React shell plus Phaser shell hybrid
+- Add a hosted-safe live data path later if we want public demos to show real OpenClaw state instead of the baked mock snapshot
 - Reduce Phaser bundle size by splitting heavier scene code
-- Pull more of the real upstream scene-art manifest across, especially actor sprites and any room-slice layers that can replace our temporary overlays
-- Add idle/work actor states from the upstream manifest so patrol sprites can pause and emote instead of always looping the walk cycle
 - Consider exposing actor pose/state in `render_game_to_text` or scene snapshot output so automated runs can assert more than just position
-- Decide whether to expose the upstream `agent` and `mcp` partitions directly instead of continuing to collapse them into our current room vocabulary
-- Map current gateway/live session semantics into the upstream work-zone model instead of just patching card text on top
-- If we want hosted live data later, replace the current local Vite `/api/openclaw/sessions` relay with a real backend or serverless route

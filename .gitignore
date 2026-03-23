@@ -13,6 +13,7 @@ dist-ssr
 output
 test-results
 .vercel
+.playwright-cli
 *.local
 
 # Editor directories and files

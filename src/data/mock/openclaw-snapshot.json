@@ -1,0 +1,624 @@
+{
+  "mode": "mock",
+  "generatedAt": "2026-03-06T13:40:00.000Z",
+  "resources": [
+    {
+      "id": "document",
+      "label": "Documents Archive",
+      "status": "active",
+      "itemCount": 14,
+      "lastAccessAt": "2026-03-06T13:28:00.000Z",
+      "summary": "14 document items",
+      "detail": "latest README.md",
+      "source": "workspace/docs",
+      "items": [
+        {
+          "id": "mock-doc-1",
+          "title": "README.md",
+          "path": "README.md",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "readme",
+          "openPath": "README.md",
+          "folderPath": "README.md",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-doc-2",
+          "title": "asset-contract-v2-openclaw-partitions.md",
+          "path": "docs/asset-contract-v2-openclaw-partitions.md",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "document",
+          "openPath": "docs/asset-contract-v2-openclaw-partitions.md",
+          "folderPath": "docs",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-doc-3",
+          "title": "work-output.protocol.json",
+          "path": "src/data/work-output.protocol.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "data",
+          "openPath": "src/data/work-output.protocol.json",
+          "folderPath": "src/data",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "images",
+      "label": "Images",
+      "status": "idle",
+      "itemCount": 9,
+      "lastAccessAt": "2026-03-06T12:55:00.000Z",
+      "summary": "9 image assets",
+      "detail": "latest art/prototypes",
+      "source": "workspace/art",
+      "items": [
+        {
+          "id": "mock-img-1",
+          "title": "scene-floor.png",
+          "path": "public/assets/packs/default/2026-03-09/scene-floor.png",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "base art",
+          "openPath": "public/assets/packs/default/2026-03-09/scene-floor.png",
+          "folderPath": "public/assets/packs/default/2026-03-09",
+          "excerpt": "",
+          "thumbnailPath": "/api/openclaw/file?path=public%2Fassets%2Fpacks%2Fdefault%2F2026-03-09%2Fscene-floor.png",
+          "stats": []
+        },
+        {
+          "id": "mock-img-2",
+          "title": "scene-objects.png",
+          "path": "public/assets/packs/default/2026-03-09/scene-objects.png",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "room layer",
+          "openPath": "public/assets/packs/default/2026-03-09/scene-objects.png",
+          "folderPath": "public/assets/packs/default/2026-03-09",
+          "excerpt": "",
+          "thumbnailPath": "/api/openclaw/file?path=public%2Fassets%2Fpacks%2Fdefault%2F2026-03-09%2Fscene-objects.png",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "label": "Memory",
+      "status": "idle",
+      "itemCount": 6,
+      "lastAccessAt": "2026-03-06T12:42:00.000Z",
+      "summary": "6 memory notes",
+      "detail": "latest memory/2026-03-06.md",
+      "source": "workspace/memory",
+      "items": [
+        {
+          "id": "mock-mem-1",
+          "title": "2026-03-06.md",
+          "path": "memory/2026-03-06.md",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "daily note",
+          "openPath": "memory/2026-03-06.md",
+          "folderPath": "memory",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-mem-2",
+          "title": "MEMORY.md",
+          "path": "MEMORY.md",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "durable memory",
+          "openPath": "MEMORY.md",
+          "folderPath": "MEMORY.md",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "label": "Skills",
+      "status": "active",
+      "itemCount": 21,
+      "lastAccessAt": "2026-03-06T13:20:00.000Z",
+      "summary": "21 skill folders",
+      "detail": "latest workspace/skills",
+      "source": "workspace/skills",
+      "items": [
+        {
+          "id": "mock-skill-1",
+          "title": "nano-banana-pro",
+          "path": "skills/nano-banana-pro",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "skill",
+          "openPath": "skills/nano-banana-pro",
+          "folderPath": "skills",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-skill-2",
+          "title": "structured-task-runner",
+          "path": "workspace/skills/structured-task-runner",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "skill",
+          "openPath": "workspace/skills/structured-task-runner",
+          "folderPath": "workspace/skills",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "gateway",
+      "label": "Interface Gateway",
+      "status": "idle",
+      "itemCount": 7,
+      "lastAccessAt": "2026-03-06T12:31:00.000Z",
+      "summary": "3 integrations · 3 MCP nodes · 4 queue signals",
+      "detail": "1 paused task",
+      "source": ".openclaw/openclaw.json + .openclaw/tasks/task-queue.json + .openclaw/agents + workspace/config/mcporter.json",
+      "items": [
+        {
+          "id": "mock-gateway-1",
+          "title": "OpenClaw Config",
+          "path": ".openclaw/openclaw.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "config",
+          "openPath": ".openclaw/openclaw.json",
+          "folderPath": ".openclaw",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "providers",
+              "value": "3",
+              "tone": "cool"
+            },
+            {
+              "label": "agents",
+              "value": "2",
+              "tone": "active"
+            }
+          ]
+        },
+        {
+          "id": "mock-gateway-2",
+          "title": "Queue Overview",
+          "path": ".openclaw/tasks/task-queue.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "queue overview",
+          "openPath": ".openclaw/tasks/task-queue.json",
+          "folderPath": ".openclaw/tasks",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "blocked",
+              "value": "0",
+              "tone": "muted"
+            },
+            {
+              "label": "paused",
+              "value": "1",
+              "tone": "cool"
+            },
+            {
+              "label": "pending",
+              "value": "2",
+              "tone": "warm"
+            },
+            {
+              "label": "deliveries",
+              "value": "1",
+              "tone": "cool"
+            }
+          ]
+        },
+        {
+          "id": "mock-gateway-3",
+          "title": "Agent Runtime",
+          "path": ".openclaw/agents/main/sessions/sessions.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "runtime",
+          "openPath": ".openclaw/agents/main/sessions/sessions.json",
+          "folderPath": ".openclaw/agents/main/sessions",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "sessions",
+              "value": "2",
+              "tone": "cool"
+            },
+            {
+              "label": "subagents",
+              "value": "1",
+              "tone": "violet"
+            }
+          ]
+        },
+        {
+          "id": "mock-gateway-4",
+          "title": "mcporter.json",
+          "path": "workspace/config/mcporter.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "mcp server",
+          "openPath": "workspace/config/mcporter.json",
+          "folderPath": "workspace/config",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "transport",
+              "value": "stdio",
+              "tone": "violet"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "log",
+      "label": "Log",
+      "status": "idle",
+      "itemCount": 7,
+      "lastAccessAt": "2026-03-06T12:08:00.000Z",
+      "summary": "7 log files",
+      "detail": "latest workspace/logs",
+      "source": ".openclaw/logs",
+      "items": [
+        {
+          "id": "mock-log-1",
+          "title": "openclaw-telemetry.mjs",
+          "path": "scripts/openclaw-telemetry.mjs",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "log file",
+          "openPath": "scripts/openclaw-telemetry.mjs",
+          "folderPath": "scripts",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "mcp",
+      "label": "Code Lab",
+      "status": "idle",
+      "itemCount": 2,
+      "lastAccessAt": "2026-03-06T11:48:00.000Z",
+      "summary": "1 git repo · 1 app project",
+      "detail": "latest project/Star-Office-UI",
+      "source": "workspace/project",
+      "items": [
+        {
+          "id": "mock-mcp-1",
+          "title": "Star-Office-UI",
+          "path": "project/Star-Office-UI",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "git repository",
+          "openPath": "project/Star-Office-UI",
+          "folderPath": "project",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "branch",
+              "value": "main",
+              "tone": "active"
+            },
+            {
+              "label": "readme",
+              "value": "yes",
+              "tone": "cool"
+            }
+          ]
+        },
+        {
+          "id": "mock-mcp-2",
+          "title": "Claw Utility",
+          "path": "project/ClawUtility",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "app project",
+          "openPath": "project/ClawUtility",
+          "folderPath": "project",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "stack",
+              "value": "node",
+              "tone": "warm"
+            },
+            {
+              "label": "src",
+              "value": "yes",
+              "tone": "cool"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "schedule",
+      "label": "Scheduler Deck",
+      "status": "idle",
+      "itemCount": 5,
+      "lastAccessAt": "2026-03-06T11:22:00.000Z",
+      "summary": "5 enabled jobs",
+      "detail": "latest .openclaw/cron/jobs.json",
+      "source": ".openclaw/cron/jobs.json",
+      "items": [
+        {
+          "id": "mock-schedule-1",
+          "title": "Task Runner Dispatcher",
+          "path": ".openclaw/cron/jobs.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "cron job",
+          "openPath": ".openclaw/cron/jobs.json",
+          "folderPath": ".openclaw/cron",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "alarm",
+      "label": "Alarm",
+      "status": "idle",
+      "itemCount": 0,
+      "lastAccessAt": "2026-03-06T10:55:00.000Z",
+      "summary": "0 active alerts",
+      "detail": "alarm clear",
+      "source": ".openclaw/delivery-queue/failed",
+      "items": [
+        {
+          "id": "mock-alarm-1",
+          "title": "alarm clear",
+          "path": ".openclaw/delivery-queue/failed",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "alert state",
+          "openPath": ".openclaw/delivery-queue/failed",
+          "folderPath": ".openclaw/delivery-queue",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "label": "Run Dock",
+      "status": "active",
+      "itemCount": 6,
+      "lastAccessAt": "2026-03-06T12:02:00.000Z",
+      "summary": "1 running · 2 pending · 0 blocked · 1 paused · 2 subagent runs",
+      "detail": "1 tasks currently running",
+      "source": ".openclaw/agents + .openclaw/subagents/runs.json + .openclaw/tasks/task-queue.json",
+      "items": [
+        {
+          "id": "mock-agent-1",
+          "title": "Parallel Runs",
+          "path": ".openclaw/tasks/task-queue.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "running",
+          "openPath": ".openclaw/tasks/task-queue.json",
+          "folderPath": ".openclaw/tasks",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "running",
+              "value": "1",
+              "tone": "active"
+            },
+            {
+              "label": "pending",
+              "value": "2",
+              "tone": "warm"
+            },
+            {
+              "label": "blocked",
+              "value": "0",
+              "tone": "muted"
+            },
+            {
+              "label": "paused",
+              "value": "1",
+              "tone": "cool"
+            },
+            {
+              "label": "done",
+              "value": "3",
+              "tone": "calm"
+            }
+          ]
+        },
+        {
+          "id": "mock-agent-2",
+          "title": "Main Agent · Session",
+          "path": ".openclaw/agents/main/sessions/sessions.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "session transcript",
+          "openPath": ".openclaw/agents/main/sessions/sessions.json",
+          "folderPath": ".openclaw/agents/main/sessions",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "lane",
+              "value": "main",
+              "tone": "cool"
+            }
+          ]
+        },
+        {
+          "id": "mock-agent-3",
+          "title": "Codex · Session",
+          "path": ".openclaw/agents/codex/sessions/sessions.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "session transcript",
+          "openPath": ".openclaw/agents/codex/sessions/sessions.json",
+          "folderPath": ".openclaw/agents/codex/sessions",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "lane",
+              "value": "codex",
+              "tone": "cool"
+            }
+          ]
+        },
+        {
+          "id": "mock-agent-4",
+          "title": "Subagent Run · img-polish",
+          "path": ".openclaw/subagents/runs.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "subagent run",
+          "openPath": ".openclaw/subagents/runs.json",
+          "folderPath": ".openclaw/subagents",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": [
+            {
+              "label": "run",
+              "value": "#1",
+              "tone": "violet"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "task_queues",
+      "label": "Task Queues",
+      "status": "idle",
+      "itemCount": 4,
+      "lastAccessAt": "2026-03-06T12:12:00.000Z",
+      "summary": "4 queue tasks",
+      "detail": "1 paused task",
+      "source": ".openclaw/tasks/task-queue.json",
+      "items": [
+        {
+          "id": "mock-taskq-1",
+          "title": "Paused Task · T-01",
+          "path": ".openclaw/tasks/task-queue.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "paused",
+          "openPath": ".openclaw/tasks/task-queue.json",
+          "folderPath": ".openclaw/tasks",
+          "excerpt": "",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    },
+    {
+      "id": "break_room",
+      "label": "Break Room",
+      "status": "idle",
+      "itemCount": 4,
+      "lastAccessAt": null,
+      "summary": "healthy · 2 live signals · maintenance board ready",
+      "detail": "ready for fallback",
+      "source": "crew/break-room",
+      "items": [
+        {
+          "id": "mock-break-1",
+          "title": "System Health",
+          "path": ".openclaw/openclaw.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "health",
+          "openPath": ".openclaw/openclaw.json",
+          "folderPath": ".openclaw",
+          "excerpt": "0 blocked tasks · 1 paused task · 0 failed deliveries · 2 active rooms",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-break-2",
+          "title": "Maintenance Board",
+          "path": ".openclaw/tasks/task-queue.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "maintenance",
+          "openPath": ".openclaw/tasks/task-queue.json",
+          "folderPath": ".openclaw/tasks",
+          "excerpt": "0 blocked · 1 paused · 2 pending · 1 delivery artifact waiting for the next pass",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-break-3",
+          "title": "Cooldown Lounge",
+          "path": ".openclaw/logs",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "recovery",
+          "openPath": ".openclaw/logs",
+          "folderPath": ".openclaw",
+          "excerpt": "quiet fallback mode ready",
+          "thumbnailPath": "",
+          "stats": []
+        },
+        {
+          "id": "mock-break-4",
+          "title": "Upgrade Watch",
+          "path": "package.json",
+          "updatedAt": "2026-03-06T13:40:00.000Z",
+          "sizeBytes": 0,
+          "meta": "upgrade",
+          "openPath": "package.json",
+          "folderPath": "package.json",
+          "excerpt": "review package drift during low-pressure windows",
+          "thumbnailPath": "",
+          "stats": []
+        }
+      ]
+    }
+  ],
+  "recentEvents": [],
+  "focus": {
+    "resourceId": "document",
+    "label": "Documents Archive",
+    "occurredAt": "2026-03-06T13:28:00.000Z",
+    "detail": "latest docs/tasks/TODO-2026-03-06.md",
+    "reason": "deterministic QA snapshot"
+  }
+}
