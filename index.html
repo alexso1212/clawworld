@@ -56,6 +56,65 @@
         background: transparent !important;
       }
 
+      .hidden {
+        display: none !important;
+      }
+
+      .stage-loading {
+        position: fixed;
+        z-index: 120;
+        inset: 0 var(--stage-right-gutter) 0 var(--stage-left-gutter);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+        background:
+          radial-gradient(circle at 50% 40%, rgba(40, 78, 70, 0.28), rgba(7, 14, 14, 0.92) 68%),
+          rgba(7, 13, 13, 0.94);
+      }
+
+      .stage-loading-card {
+        width: min(420px, calc(100vw - 96px));
+        padding: 18px 20px;
+        border-radius: 18px;
+        border: 1px solid rgba(171, 218, 201, 0.18);
+        background: linear-gradient(180deg, rgba(12, 29, 27, 0.92), rgba(8, 21, 19, 0.88));
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.32),
+          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+
+      .stage-loading-kicker {
+        color: rgba(152, 181, 172, 0.88);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .stage-loading-label {
+        margin-top: 8px;
+        font-family: var(--font-display);
+        font-size: 34px;
+        line-height: 0.92;
+        color: #f6fffb;
+      }
+
+      .stage-loading-detail {
+        margin-top: 10px;
+        color: rgba(214, 238, 229, 0.82);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .stage-loading-progress {
+        margin-top: 14px;
+        color: var(--accent);
+        font-family: var(--font-display);
+        font-size: 18px;
+        line-height: 1;
+        letter-spacing: 0.04em;
+      }
+
       .menu-panel {
         position: fixed;
         z-index: 115;
@@ -2121,6 +2180,16 @@
   </head>
   <body>
     <div id="app"></div>
+    <div class="stage-loading" id="stage-loading" aria-hidden="false" aria-busy="true">
+      <div class="stage-loading-card">
+        <div class="stage-loading-kicker">ClawLibrary</div>
+        <div class="stage-loading-label" id="stage-loading-label">Loading archive stage</div>
+        <div class="stage-loading-detail" id="stage-loading-detail">
+          Downloading the scene art and patrol sprites. The first hosted visit can take a little longer.
+        </div>
+        <div class="stage-loading-progress" id="stage-loading-progress">0% ready</div>
+      </div>
+    </div>
     <div class="hud-title">
       <div class="hud-title-main" id="hud-title-main">龙虾图书馆 / ClawLibrary</div>
       <div class="hud-title-sub" id="hud-title-sub">Pixel archive for OpenClaw flows.</div>

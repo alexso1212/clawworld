@@ -7,6 +7,11 @@ import type { UiLocale } from './ui/locale';
 import { resourceLabel, uiText } from './ui/locale';
 import { PARTITION_CSS_COLORS } from './ui/palette';
 import { shouldUseStaticMockData } from './runtime/systems/appRuntime';
+import {
+  createStageLoadingOverlay,
+  STAGE_LOADING_PROGRESS_EVENT,
+  STAGE_READY_EVENT,
+} from './runtime/systems/stageLoadingOverlay';
 
 const BASE_WIDTH = 1920;
 const BASE_HEIGHT = 1080;
@@ -38,6 +43,29 @@ const DEFAULT_UI_LOCALE = (appConfig.ui.defaultLocale === 'zh' ? 'zh' : 'en') as
 
 const scene = new LibraryScene();
 const staticMockSnapshot = mockSnapshotJson as unknown as OpenClawSnapshot;
+const forceMock = new URLSearchParams(window.location.search).get('mock') === '1';
+const useStaticMockData = shouldUseStaticMockData(window.location);
+const stageLoadingOverlay = createStageLoadingOverlay(document);
+const stageLoadingDetail = useStaticMockData
+  ? 'Downloading the hosted art pack. The first visit can take a little longer.'
+  : 'Booting the live library stage and loading room textures.';
+
+function showStageLoading(progress?: number | null) {
+  stageLoadingOverlay.show({
+    label: 'Loading archive stage',
+    detail: stageLoadingDetail,
+    progress,
+  });
+}
+
+showStageLoading(0);
+window.addEventListener(STAGE_LOADING_PROGRESS_EVENT, (event: Event) => {
+  const progress = event instanceof CustomEvent && typeof event.detail === 'number' ? event.detail : undefined;
+  showStageLoading(progress);
+});
+window.addEventListener(STAGE_READY_EVENT, () => {
+  stageLoadingOverlay.hide();
+});
 
 async function loadUiFonts(): Promise<void> {
   if (!('fonts' in document)) {
@@ -83,9 +111,6 @@ const state: GrowthState = {
   skillsCount: 0,
   textOutputs: 0
 };
-
-const forceMock = new URLSearchParams(window.location.search).get('mock') === '1';
-const useStaticMockData = shouldUseStaticMockData(window.location);
 
 const cycleThemeButton = document.getElementById('cycle-theme');
 const toggleActorSkinButton = document.getElementById('toggle-actor-skin') as HTMLButtonElement | null;

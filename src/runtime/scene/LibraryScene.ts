@@ -28,6 +28,7 @@ import { computeRoute } from '../../core/pathfinder';
 import { computeVisibleAssetIds } from '../systems/growth';
 import { resolveAppAssetPath } from '../systems/appRuntime';
 import { loadProtocols } from '../systems/protocolStore';
+import { STAGE_LOADING_PROGRESS_EVENT, STAGE_READY_EVENT } from '../systems/stageLoadingOverlay';
 import { configureTouch } from '../systems/touchController';
 import type { UiLocale } from '../../ui/locale';
 import { resourceLabel } from '../../ui/locale';
@@ -161,6 +162,13 @@ export class LibraryScene extends Phaser.Scene {
   }
 
   preload(): void {
+    window.dispatchEvent(new CustomEvent(STAGE_LOADING_PROGRESS_EVENT, { detail: 0 }));
+    this.load.on(Phaser.Loader.Events.PROGRESS, (value: number) => {
+      window.dispatchEvent(new CustomEvent(STAGE_LOADING_PROGRESS_EVENT, { detail: value }));
+    });
+    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+      window.dispatchEvent(new CustomEvent(STAGE_LOADING_PROGRESS_EVENT, { detail: 1 }));
+    });
     this.preloadSceneArt();
   }
 
@@ -255,6 +263,7 @@ export class LibraryScene extends Phaser.Scene {
     this.updateResourceAnimations();
     this.updateLobsterVisual('idle');
     this.syncWorkStatus();
+    window.dispatchEvent(new Event(STAGE_READY_EVENT));
   }
 
   update(_time: number, delta: number): void {
