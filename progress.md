@@ -52,12 +52,14 @@ Completed:
 - Added base-aware asset path remapping plus a production-safe static snapshot fallback so hosted demos and `/clawworld/` subpath builds render the upstream game without hitting missing local `/api/openclaw/*` routes
 - Verified the upstream-reset build with Vitest, a `/clawworld/` production build, and Playwright screenshots in `output/web-game/upstream-pages-check-2/`
 - Root-caused the hosted “empty page” report to slow first-load asset downloads on GitHub Pages, then added a stage-loading overlay so the scene shows explicit loading state until Phaser finishes booting
+- Added a first-pass `Clawworld`-to-`ClawLibrary` demo snapshot adapter so the hosted game now surfaces our own route / reserve / tool / abnormality language inside `gateway`, `alarm`, `agent`, and `break_room`, with the actor routing toward the active clawworld focus
 
 TODO:
 - Decide how much of the old `office/task-world` prototype survives as optional legacy routes versus being retired outright
 - Map our current gateway/live session semantics into the upstream room/work-zone model instead of keeping the static snapshot as the hosted default forever
 - Reintroduce Clawworld-specific product language and interactions on top of the upstream game without re-splitting the app into a React shell plus Phaser shell hybrid
 - Add a hosted-safe live data path later if we want public demos to show real OpenClaw state instead of the baked mock snapshot
+- Extend the current demo adapter beyond HUD/menu text so more of the scene art itself carries Clawworld state, not just room status colors and focus routing
 - Reduce the first-load art pack weight or add a lightweight preview layer so hosted demos become visible faster even before all large textures are cached
 - Reduce Phaser bundle size by splitting heavier scene code
 - Consider exposing actor pose/state in `render_game_to_text` or scene snapshot output so automated runs can assert more than just position

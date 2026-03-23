@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import appConfig from '../clawlibrary.config.json';
+import { mockRuntimeSession } from './adapters/mock/mockWorldState';
 import { LibraryScene } from './runtime/scene/LibraryScene';
 import mockSnapshotJson from './data/mock/openclaw-snapshot.json';
 import type { GrowthState, OpenClawResourceItem, OpenClawSnapshot, ResourcePartitionId } from './core/types';
@@ -12,6 +13,7 @@ import {
   STAGE_LOADING_PROGRESS_EVENT,
   STAGE_READY_EVENT,
 } from './runtime/systems/stageLoadingOverlay';
+import { applyClawworldDemoSnapshot } from './runtime/systems/clawworldDemoSnapshot';
 
 const BASE_WIDTH = 1920;
 const BASE_HEIGHT = 1080;
@@ -42,7 +44,10 @@ const RESOURCE_UI_ALIAS: Partial<Record<ResourcePartitionId, ResourcePartitionId
 const DEFAULT_UI_LOCALE = (appConfig.ui.defaultLocale === 'zh' ? 'zh' : 'en') as UiLocale;
 
 const scene = new LibraryScene();
-const staticMockSnapshot = mockSnapshotJson as unknown as OpenClawSnapshot;
+const staticMockSnapshot = applyClawworldDemoSnapshot(
+  mockSnapshotJson as unknown as OpenClawSnapshot,
+  mockRuntimeSession,
+);
 const forceMock = new URLSearchParams(window.location.search).get('mock') === '1';
 const useStaticMockData = shouldUseStaticMockData(window.location);
 const stageLoadingOverlay = createStageLoadingOverlay(document);
