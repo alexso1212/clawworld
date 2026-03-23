@@ -27,6 +27,7 @@ import { pointInPolygon } from '../../core/geometry';
 import { computeRoute } from '../../core/pathfinder';
 import { computeVisibleAssetIds } from '../systems/growth';
 import { resolveAppAssetPath } from '../systems/appRuntime';
+import { getRuntimeAmbientActorDefs } from '../systems/runtimeActorManifest';
 import { loadProtocols } from '../systems/protocolStore';
 import { STAGE_LOADING_PROGRESS_EVENT, STAGE_READY_EVENT } from '../systems/stageLoadingOverlay';
 import { configureTouch } from '../systems/touchController';
@@ -83,6 +84,27 @@ type RouteContext = {
 type ResourceSelectEvent = {
   resourceId: ResourcePartitionId;
   anchor?: Point;
+};
+
+type AmbientWaypoint = Point & {
+  zoneId: ResourcePartitionId;
+  holdMs?: number;
+  pose?: 'idle' | 'working';
+};
+
+type AmbientActor = {
+  id: string;
+  label: string;
+  container: Phaser.GameObjects.Container;
+  body: Phaser.GameObjects.Sprite | Phaser.GameObjects.Arc | null;
+  route: Point[];
+  waypoints: AmbientWaypoint[];
+  currentWaypointIndex: number;
+  targetWaypointIndex: number;
+  holdRemainingMs: number;
+  speedPerMs: number;
+  pose: WorkMode;
+  stateId: LobsterStateId;
 };
 
 export class LibraryScene extends Phaser.Scene {
@@ -145,6 +167,7 @@ export class LibraryScene extends Phaser.Scene {
   private celebrationUntil = 0;
   private actorVisualCursorByContext = new Map<string, number>();
   private actorVisualSelectionByContext = new Map<string, { textureKey: string; holdUntil: number }>();
+  private ambientActors: AmbientActor[] = [];
 
   private lastOutput: WorkOutputEvent = {
     stateId: 'idle',
@@ -221,6 +244,7 @@ export class LibraryScene extends Phaser.Scene {
     this.createActorAnimations();
     this.spawnLobster();
     this.snapWorkZonesToReachableWalkable({ x: this.lobster.x, y: this.lobster.y });
+    this.spawnAmbientActors();
     this.initializeRoomLabels();
     this.initializeWorkZones();
     this.drawOccluders();
@@ -268,6 +292,7 @@ export class LibraryScene extends Phaser.Scene {
 
   update(_time: number, delta: number): void {
     this.advanceLobster(delta);
+    this.advanceAmbientActors(delta);
     this.positionThoughtBubble();
   }
 
@@ -371,6 +396,7 @@ export class LibraryScene extends Phaser.Scene {
     this.actorVariantId = variant.id;
     this.actorVisualSelectionByContext.clear();
     this.updateLobsterVisual(this.currentActorVisualMode());
+    this.syncAmbientActorVisuals();
   }
 
   private preloadSceneArt(): void {
@@ -699,6 +725,24 @@ export class LibraryScene extends Phaser.Scene {
       route.push({ x: target.x, y: target.y });
     }
     return route;
+  }
+
+  private computeRoutePointsBetween(from: Point, to: Point): Point[] {
+    const maskRoute = this.computeMaskRoute(from, to);
+    if (maskRoute && maskRoute.length > 0) {
+      return maskRoute;
+    }
+
+    const route = computeRoute(
+      this.protocols.mapLogic.walkGraph,
+      from,
+      to,
+      this.protocols.mapLogic.collisionPolygons,
+      this.protocols.mapLogic.walkableZones ?? [],
+      (sample) => this.isWalkablePoint(sample),
+    );
+
+    return this.routePointsForTarget(route, to);
   }
 
   private gridIndex(col: number, row: number): number {
@@ -1359,6 +1403,14 @@ export class LibraryScene extends Phaser.Scene {
     const firstNode =
       this.protocols.mapLogic.walkGraph.nodes.find((node) => node.id === 'BR1')
       ?? this.protocols.mapLogic.walkGraph.nodes[0];
+    const actorDisplay = this.createActorDisplay({ x: firstNode.x, y: firstNode.y });
+    this.lobster = actorDisplay.container;
+    this.lobsterBody = actorDisplay.body;
+    this.lastReachedZoneId = firstNode.roomId;
+    this.updateLobsterVisual('idle');
+  }
+
+  private createActorDisplay(origin: Point) {
     const children: Phaser.GameObjects.GameObject[] = [];
     const actor = this.protocols.sceneArt.actor;
     const variant = this.resolveActorVariant();
@@ -1368,23 +1420,150 @@ export class LibraryScene extends Phaser.Scene {
       children.push(shadow);
     }
 
-    const idleVisual = this.resolveActorMode('idle');
+    let body: Phaser.GameObjects.Sprite | Phaser.GameObjects.Arc | null = null;
+    const idleVisual = this.resolveActorModeFor('idle', 'idle');
     if (actor && variant && idleVisual) {
       const sprite = this.add.sprite(actor.anchorOffset?.x ?? 0, actor.anchorOffset?.y ?? 0, idleVisual.textureKey);
       sprite.setDisplaySize(actor.displaySize.width, actor.displaySize.height);
       children.push(sprite);
-      this.lobsterBody = sprite;
+      body = sprite;
     } else {
       const fallback = this.add.circle(0, 0, 16, 0xff6f48, 1);
       fallback.setStrokeStyle(3, 0x2a0f05, 0.8);
       children.push(fallback);
-      this.lobsterBody = fallback;
+      body = fallback;
     }
 
-    this.lobster = this.add.container(firstNode.x, firstNode.y, children);
-    this.lobster.setDepth(this.layerToDepth('actor', firstNode.y));
-    this.lastReachedZoneId = firstNode.roomId;
-    this.updateLobsterVisual('idle');
+    const container = this.add.container(origin.x, origin.y, children);
+    container.setDepth(this.layerToDepth('actor', origin.y));
+    return { container, body };
+  }
+
+  private ambientOffsetForIndex(index: number): Point {
+    const offsets: Point[] = [
+      { x: -26, y: -4 },
+      { x: 18, y: 10 },
+      { x: 12, y: -16 },
+      { x: -18, y: 14 },
+    ];
+    return offsets[index % offsets.length];
+  }
+
+  private spawnAmbientActors(): void {
+    this.ambientActors = getRuntimeAmbientActorDefs().flatMap((actorDef, index) => {
+      const offset = this.ambientOffsetForIndex(index);
+      const waypoints = actorDef.stops.flatMap((stop) => {
+        const zone = this.protocols.mapLogic.workZones.find((item) => item.id === stop.zoneId);
+        return zone
+          ? [{
+              zoneId: stop.zoneId,
+              x: zone.anchor.x + offset.x,
+              y: zone.anchor.y + offset.y,
+              holdMs: stop.holdMs,
+              pose: stop.pose,
+            }]
+          : [];
+      });
+
+      if (waypoints.length < 2) {
+        return [];
+      }
+
+      const start = waypoints[0];
+      const actorDisplay = this.createActorDisplay(start);
+      const pose: WorkMode = start.holdMs && start.holdMs > 0 ? (start.pose ?? 'idle') : 'moving';
+      const ambientActor: AmbientActor = {
+        id: actorDef.id,
+        label: actorDef.label,
+        container: actorDisplay.container,
+        body: actorDisplay.body,
+        route: [],
+        waypoints,
+        currentWaypointIndex: 0,
+        targetWaypointIndex: 1,
+        holdRemainingMs: start.holdMs ?? 0,
+        speedPerMs: actorDef.speed / 1000,
+        pose,
+        stateId: this.ambientStateForWaypoint(start, pose),
+      };
+
+      this.updateActorBodyVisual(ambientActor.body, ambientActor.pose, ambientActor.stateId);
+      if (ambientActor.holdRemainingMs === 0) {
+        this.planAmbientActorRoute(ambientActor);
+      }
+
+      return [ambientActor];
+    });
+  }
+
+  private ambientStateForWaypoint(waypoint: AmbientWaypoint, pose: WorkMode): LobsterStateId {
+    if (pose !== 'working') {
+      return waypoint.zoneId === 'break_room' ? 'resting' : 'idle';
+    }
+
+    switch (waypoint.zoneId) {
+      case 'document':
+        return 'documenting';
+      case 'memory':
+        return 'cataloging';
+      case 'skills':
+      case 'mcp':
+        return 'researching';
+      case 'agent':
+        return 'executing';
+      case 'gateway':
+      case 'task_queues':
+        return 'syncing';
+      case 'alarm':
+        return 'error';
+      case 'log':
+      case 'schedule':
+      case 'images':
+        return 'monitoring';
+      case 'break_room':
+        return 'resting';
+      default:
+        return 'executing';
+    }
+  }
+
+  private planAmbientActorRoute(actor: AmbientActor): void {
+    const target = actor.waypoints[actor.targetWaypointIndex];
+    if (!target) {
+      return;
+    }
+
+    actor.route = this.computeRoutePointsBetween(
+      { x: actor.container.x, y: actor.container.y },
+      { x: target.x, y: target.y },
+    );
+    actor.pose = 'moving';
+    this.updateActorBodyVisual(actor.body, actor.pose, actor.stateId);
+
+    if (actor.route.length === 0) {
+      this.completeAmbientActorRoute(actor);
+    }
+  }
+
+  private completeAmbientActorRoute(actor: AmbientActor): void {
+    const waypoint = actor.waypoints[actor.targetWaypointIndex];
+    if (!waypoint) {
+      return;
+    }
+
+    actor.container.x = waypoint.x;
+    actor.container.y = waypoint.y;
+    actor.container.setDepth(this.layerToDepth('actor', actor.container.y));
+    actor.currentWaypointIndex = actor.targetWaypointIndex;
+    actor.targetWaypointIndex = (actor.targetWaypointIndex + 1) % actor.waypoints.length;
+    actor.holdRemainingMs = waypoint.holdMs ?? 0;
+    actor.pose = actor.holdRemainingMs > 0 ? (waypoint.pose ?? 'idle') : 'moving';
+    actor.stateId = this.ambientStateForWaypoint(waypoint, actor.pose);
+    this.updateActorBodyVisual(actor.body, actor.pose, actor.stateId);
+
+    if (actor.holdRemainingMs === 0) {
+      this.planAmbientActorRoute(actor);
+    }
   }
 
   private spawnAmbientPropFx(): void {
@@ -1542,20 +1721,7 @@ export class LibraryScene extends Phaser.Scene {
       detailOverride: `moving to ${zone.label} · ${this.pendingRouteContext.detail}`
     });
 
-    const maskRoute = this.computeMaskRoute({ x: this.lobster.x, y: this.lobster.y }, zone.anchor);
-    if (maskRoute && maskRoute.length > 0) {
-      this.lobsterRoute = maskRoute;
-    } else {
-      const route = computeRoute(
-        this.protocols.mapLogic.walkGraph,
-        { x: this.lobster.x, y: this.lobster.y },
-        zone.anchor,
-        this.protocols.mapLogic.collisionPolygons,
-        this.protocols.mapLogic.walkableZones ?? [],
-        (sample) => this.isWalkablePoint(sample)
-      );
-      this.lobsterRoute = this.routePointsForTarget(route, zone.anchor);
-    }
+    this.lobsterRoute = this.computeRoutePointsBetween({ x: this.lobster.x, y: this.lobster.y }, zone.anchor);
     this.updateLobsterVisual('moving');
 
     if (this.lobsterRoute.length === 0) {
@@ -2161,12 +2327,11 @@ export class LibraryScene extends Phaser.Scene {
     }
   }
 
-  private resolveActorMode(mode: WorkMode) {
+  private resolveActorModeFor(mode: WorkMode, stateId: LobsterStateId) {
     const variant = this.resolveActorVariant();
     if (!variant) {
       return null;
     }
-    const stateId = this.lastOutput.stateId;
     const candidates = variant.modes.filter((candidate) => candidate.mode === mode);
     if (candidates.length === 0) {
       return variant.modes[0] ?? null;
@@ -2207,28 +2372,89 @@ export class LibraryScene extends Phaser.Scene {
     return 'idle';
   }
 
-  private updateLobsterVisual(mode: WorkMode): void {
+  private updateActorBodyVisual(
+    body: Phaser.GameObjects.Sprite | Phaser.GameObjects.Arc | null,
+    mode: WorkMode,
+    stateId: LobsterStateId,
+  ): void {
     const actor = this.protocols.sceneArt.actor;
     const variant = this.resolveActorVariant();
-    const actorMode = this.resolveActorMode(mode);
-    if (!actor || !variant || !actorMode || !(this.lobsterBody instanceof Phaser.GameObjects.Sprite)) {
+    const actorMode = this.resolveActorModeFor(mode, stateId);
+    if (!actor || !variant || !actorMode || !(body instanceof Phaser.GameObjects.Sprite)) {
       return;
     }
 
-    this.lobsterBody.setDisplaySize(actor.displaySize.width, actor.displaySize.height);
+    body.setDisplaySize(actor.displaySize.width, actor.displaySize.height);
 
     const animationKey = this.actorAnimationKey(variant.id, actorMode.textureKey);
     if (actorMode.kind === 'spritesheet' && actorMode.frameCount && this.anims.exists(animationKey)) {
-      if (this.lobsterBody.anims.currentAnim?.key !== animationKey) {
-        this.lobsterBody.play(animationKey);
+      if (body.anims.currentAnim?.key !== animationKey) {
+        body.play(animationKey);
       }
       return;
     }
 
-    this.lobsterBody.stop();
-    if (this.lobsterBody.texture.key !== actorMode.textureKey) {
-      this.lobsterBody.setTexture(actorMode.textureKey);
+    body.stop();
+    if (body.texture.key !== actorMode.textureKey) {
+      body.setTexture(actorMode.textureKey);
     }
-    this.lobsterBody.setFrame(0);
+    body.setFrame(0);
+  }
+
+  private updateLobsterVisual(mode: WorkMode): void {
+    this.updateActorBodyVisual(this.lobsterBody, mode, this.lastOutput.stateId);
+  }
+
+  private syncAmbientActorVisuals(): void {
+    for (const actor of this.ambientActors) {
+      this.updateActorBodyVisual(actor.body, actor.pose, actor.stateId);
+    }
+  }
+
+  private advanceAmbientActors(deltaMs: number): void {
+    for (const actor of this.ambientActors) {
+      if (actor.holdRemainingMs > 0) {
+        actor.holdRemainingMs = Math.max(0, actor.holdRemainingMs - deltaMs);
+        if (actor.holdRemainingMs === 0) {
+          this.planAmbientActorRoute(actor);
+        } else {
+          this.updateActorBodyVisual(actor.body, actor.pose, actor.stateId);
+        }
+        continue;
+      }
+
+      if (actor.route.length === 0) {
+        this.planAmbientActorRoute(actor);
+        continue;
+      }
+
+      const target = actor.route[0];
+      const step = actor.speedPerMs * deltaMs;
+      const dx = target.x - actor.container.x;
+      const dy = target.y - actor.container.y;
+      const distance = Math.hypot(dx, dy);
+
+      if (actor.body instanceof Phaser.GameObjects.Sprite) {
+        actor.body.setFlipX(dx < 0);
+      }
+
+      if (distance <= step) {
+        actor.container.x = target.x;
+        actor.container.y = target.y;
+        actor.container.setDepth(this.layerToDepth('actor', actor.container.y));
+        actor.route.shift();
+
+        if (actor.route.length === 0) {
+          this.completeAmbientActorRoute(actor);
+        }
+        continue;
+      }
+
+      actor.container.x += (dx / distance) * step;
+      actor.container.y += (dy / distance) * step;
+      actor.container.setDepth(this.layerToDepth('actor', actor.container.y));
+      actor.pose = 'moving';
+      this.updateActorBodyVisual(actor.body, actor.pose, actor.stateId);
+    }
   }
 }
