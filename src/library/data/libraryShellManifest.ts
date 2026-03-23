@@ -162,8 +162,21 @@ const UPSTREAM_ASSET_COUNT_BY_ROOM = UPSTREAM_ASSET_MANIFEST.assets.reduce((coun
   return counts
 }, new Map<string, number>())
 
+function normalizeBasePath(basePath: string | undefined) {
+  if (!basePath || basePath === '/') {
+    return ''
+  }
+
+  return `/${basePath.replace(/^\/+|\/+$/g, '')}`
+}
+
+export function resolveLibraryAssetPath(path: string, basePath = import.meta.env.BASE_URL) {
+  const remappedPath = path.replace(/^\/assets\//, '/clawlibrary/assets/')
+  return `${normalizeBasePath(basePath)}${remappedPath}`
+}
+
 function remapUpstreamPublicPath(path: string) {
-  return path.replace('/assets/', '/clawlibrary/assets/')
+  return resolveLibraryAssetPath(path)
 }
 
 function toPercent(value: number, total: number) {

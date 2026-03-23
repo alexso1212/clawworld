@@ -4,6 +4,7 @@ import {
   buildLibrarySceneSnapshot,
   getLibrarySceneArtLayers,
   getLibraryShellManifest,
+  resolveLibraryAssetPath,
 } from '../../src/library/data/libraryShellManifest'
 
 describe('library shell manifest', () => {
@@ -57,6 +58,18 @@ describe('library shell manifest', () => {
     expect(layers.floor.path).toBe('/clawlibrary/assets/packs/default/2026-03-09/scene-floor.png')
     expect(layers.objects.path).toBe('/clawlibrary/assets/packs/default/2026-03-09/scene-objects.png')
     expect(layers.floor.displaySize).toEqual({ width: 1920, height: 1072 })
+  })
+
+  it('prefixes vendored clawlibrary assets with the deployment base path', () => {
+    expect(resolveLibraryAssetPath('/assets/packs/default/2026-03-09/scene-floor.png', '/clawworld/')).toBe(
+      '/clawworld/clawlibrary/assets/packs/default/2026-03-09/scene-floor.png',
+    )
+    expect(
+      resolveLibraryAssetPath(
+        '/assets/generated/actors/capy-claw-emoji-v2/sheets/walk-spritesheet.png',
+        '/clawworld/',
+      ),
+    ).toBe('/clawworld/clawlibrary/assets/generated/actors/capy-claw-emoji-v2/sheets/walk-spritesheet.png')
   })
 
   it('surfaces vendored actor sprite-sheet variants for library patrol actors', () => {
