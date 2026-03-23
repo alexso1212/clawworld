@@ -26,6 +26,7 @@ import type {
 import { pointInPolygon } from '../../core/geometry';
 import { computeRoute } from '../../core/pathfinder';
 import { computeVisibleAssetIds } from '../systems/growth';
+import { getActorVariantTint } from '../systems/actorVariantChrome';
 import { resolveAppAssetPath } from '../systems/appRuntime';
 import { getRuntimeAmbientActorDefs } from '../systems/runtimeActorManifest';
 import { loadProtocols } from '../systems/protocolStore';
@@ -2385,6 +2386,12 @@ export class LibraryScene extends Phaser.Scene {
     }
 
     body.setDisplaySize(actor.displaySize.width, actor.displaySize.height);
+    const tint = getActorVariantTint(variant.id);
+    if (tint === null) {
+      body.clearTint();
+    } else {
+      body.setTint(tint);
+    }
 
     const animationKey = this.actorAnimationKey(variant.id, actorMode.textureKey);
     if (actorMode.kind === 'spritesheet' && actorMode.frameCount && this.anims.exists(animationKey)) {

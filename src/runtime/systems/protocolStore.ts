@@ -4,6 +4,7 @@ import sceneArtJson from '../../data/scene-art.manifest.json';
 import themePackJson from '../../data/themes/default/theme-pack.json';
 import workOutputJson from '../../data/work-output.protocol.json';
 import type { AssetManifest, MapLogic, SceneArtManifest, ThemePack, WorkOutputProtocol } from '../../core/types';
+import { ensureLobsterActorVariant } from './actorVariantChrome';
 import { resolveAppAssetPath } from './appRuntime';
 
 function remapProtocolPaths<T>(value: T): T {
@@ -32,10 +33,15 @@ export function loadProtocols(): {
   themePack: ThemePack;
   workOutput: WorkOutputProtocol;
 } {
+  const sceneArt = remapProtocolPaths(sceneArtJson) as unknown as SceneArtManifest;
+
   return {
     mapLogic: mapLogicJson as unknown as MapLogic,
     assetManifest: assetManifestJson as unknown as AssetManifest,
-    sceneArt: remapProtocolPaths(sceneArtJson) as unknown as SceneArtManifest,
+    sceneArt: {
+      ...sceneArt,
+      actor: ensureLobsterActorVariant(sceneArt.actor)
+    },
     themePack: remapProtocolPaths(themePackJson) as unknown as ThemePack,
     workOutput: workOutputJson as unknown as WorkOutputProtocol
   };

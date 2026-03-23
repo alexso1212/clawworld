@@ -7,6 +7,10 @@ import type { GrowthState, OpenClawResourceItem, OpenClawSnapshot, ResourceParti
 import type { UiLocale } from './ui/locale';
 import { resourceLabel, uiText } from './ui/locale';
 import { PARTITION_CSS_COLORS } from './ui/palette';
+import {
+  getActorVariantChromeLabel,
+  resolveStoredActorVariantPreference,
+} from './runtime/systems/actorVariantChrome';
 import { shouldUseStaticMockData } from './runtime/systems/appRuntime';
 import {
   createStageLoadingOverlay,
@@ -844,7 +848,10 @@ function saveDebugPanelPreference(): void {
 
 function loadActorVariantPreference(): void {
   try {
-    actorVariantId = localStorage.getItem(ACTOR_VARIANT_STORAGE_KEY) || appConfig.actor.defaultVariantId;
+    actorVariantId = resolveStoredActorVariantPreference(
+      localStorage.getItem(ACTOR_VARIANT_STORAGE_KEY),
+      appConfig.actor.defaultVariantId,
+    );
   } catch {
     actorVariantId = appConfig.actor.defaultVariantId;
   }
@@ -862,20 +869,6 @@ function saveActorVariantPreference(): void {
   }
 }
 
-function shortActorVariantLabel(label: string, locale: UiLocale): string {
-  const normalized = label.trim().toLowerCase();
-  if (normalized.includes('capy')) {
-    return locale === 'zh' ? '水豚·爪' : 'capy·claw';
-  }
-  if (normalized.includes('cat')) {
-    return locale === 'zh' ? '猫咪·爪' : 'cat·claw';
-  }
-  return label
-    .replace(/-?claw/ig, '')
-    .replace(/\s{2,}/g, ' ')
-    .trim();
-}
-
 function updateActorSkinButtonLabel(): void {
   if (!toggleActorSkinButton) {
     return;
@@ -883,7 +876,7 @@ function updateActorSkinButtonLabel(): void {
   const activeScene = getActiveScene();
   const variantLabel = activeScene?.getActorVariantLabel?.() ?? 'Actor';
   const variantCount = activeScene?.getActorVariants().length ?? 0;
-  toggleActorSkinButton.textContent = shortActorVariantLabel(variantLabel, uiLocale);
+  toggleActorSkinButton.textContent = getActorVariantChromeLabel(variantLabel, uiLocale);
   toggleActorSkinButton.disabled = variantCount <= 1;
 }
 
