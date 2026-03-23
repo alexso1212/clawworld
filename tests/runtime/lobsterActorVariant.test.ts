@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { loadProtocols } from '../../src/runtime/systems/protocolStore'
 import {
+  getActorVariantTint,
   getActorVariantChromeLabel,
   resolveStoredActorVariantPreference,
 } from '../../src/runtime/systems/actorVariantChrome'
@@ -17,6 +18,7 @@ describe('lobster actor variant', () => {
     expect(lobsterVariant?.label).toBe('Lobster-Claw')
     expect(lobsterVariant?.modes.some((mode) => mode.mode === 'moving')).toBe(true)
     expect(lobsterVariant?.modes.some((mode) => mode.mode === 'working')).toBe(true)
+    expect(lobsterVariant?.modes.every((mode) => mode.path.includes('/assets/generated/actors/lobster-claw-v1/'))).toBe(true)
   })
 
   it('renders a short lobster label for the actor skin toggle', () => {
@@ -28,5 +30,9 @@ describe('lobster actor variant', () => {
     expect(resolveStoredActorVariantPreference('capy-claw-emoji', 'lobster-claw')).toBe('lobster-claw')
     expect(resolveStoredActorVariantPreference('cat-claw-emoji', 'lobster-claw')).toBe('cat-claw-emoji')
     expect(resolveStoredActorVariantPreference(null, 'lobster-claw')).toBe('lobster-claw')
+  })
+
+  it('does not rely on tint-only fallback once the lobster art pack exists', () => {
+    expect(getActorVariantTint('lobster-claw')).toBe(null)
   })
 })

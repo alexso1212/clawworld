@@ -33,15 +33,15 @@ export function loadProtocols(): {
   themePack: ThemePack;
   workOutput: WorkOutputProtocol;
 } {
-  const sceneArt = remapProtocolPaths(sceneArtJson) as unknown as SceneArtManifest;
+  const sceneArt = sceneArtJson as unknown as SceneArtManifest
 
   return {
     mapLogic: mapLogicJson as unknown as MapLogic,
     assetManifest: assetManifestJson as unknown as AssetManifest,
-    sceneArt: {
+    sceneArt: remapProtocolPaths({
       ...sceneArt,
-      actor: ensureLobsterActorVariant(sceneArt.actor)
-    },
+      actor: ensureLobsterActorVariant(sceneArt.actor),
+    }) as unknown as SceneArtManifest,
     themePack: remapProtocolPaths(themePackJson) as unknown as ThemePack,
     workOutput: workOutputJson as unknown as WorkOutputProtocol
   };

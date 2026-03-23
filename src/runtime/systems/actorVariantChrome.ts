@@ -1,11 +1,10 @@
-import type { ActorVariantDef, ActorVisualDef } from '../../core/types'
+import type { ActorVariantDef, ActorVisualDef, ActorVisualMode } from '../../core/types'
 import type { UiLocale } from '../../ui/locale'
 
 export const LEGACY_DEFAULT_ACTOR_VARIANT_ID = 'capy-claw-emoji'
 export const LOBSTER_ACTOR_VARIANT_ID = 'lobster-claw'
 export const LOBSTER_ACTOR_VARIANT_LABEL = 'Lobster-Claw'
-
-const LOBSTER_TINT = 0xff7a5c
+const LOBSTER_SHEET_ROOT = '/assets/generated/actors/lobster-claw-v1/sheets'
 
 function cloneVariant(variant: ActorVariantDef): ActorVariantDef {
   return {
@@ -17,32 +16,63 @@ function cloneVariant(variant: ActorVariantDef): ActorVariantDef {
   }
 }
 
+function createLobsterMode(
+  id: string,
+  mode: ActorVisualMode['mode'],
+  frameCount: number,
+  fps: number,
+  stateIds?: ActorVisualMode['stateIds'],
+): ActorVisualMode {
+  return {
+    mode,
+    stateIds,
+    textureKey: `lobster-claw-${id}-sheet`,
+    path: `${LOBSTER_SHEET_ROOT}/${id}-spritesheet.png`,
+    kind: 'spritesheet',
+    frameWidth: 128,
+    frameHeight: 128,
+    frameCount,
+    animation: {
+      fps,
+      repeat: -1,
+    },
+  }
+}
+
+function createLobsterVariant(): ActorVariantDef {
+  return {
+    id: LOBSTER_ACTOR_VARIANT_ID,
+    label: LOBSTER_ACTOR_VARIANT_LABEL,
+    modes: [
+      createLobsterMode('stand_back', 'idle', 12, 6, ['idle']),
+      createLobsterMode('stand_front', 'idle', 12, 6, ['idle']),
+      createLobsterMode('rest', 'idle', 10, 6, ['idle']),
+      createLobsterMode('sleep', 'idle', 10, 6, ['resting']),
+      createLobsterMode('coffee', 'idle', 12, 6, ['resting']),
+      createLobsterMode('lie_flat', 'idle', 10, 6, ['error']),
+      createLobsterMode('walk', 'moving', 12, 7),
+      createLobsterMode('work', 'working', 12, 6, ['writing', 'executing']),
+      createLobsterMode('read', 'working', 12, 6, ['cataloging', 'documenting']),
+      createLobsterMode('idea', 'working', 12, 6, ['monitoring', 'researching']),
+      createLobsterMode('repair', 'working', 12, 6, ['syncing']),
+      createLobsterMode('error', 'working', 12, 6, ['error']),
+      createLobsterMode('coffee', 'working', 12, 6, ['resting']),
+    ],
+  }
+}
+
 export function ensureLobsterActorVariant(actor: ActorVisualDef | undefined): ActorVisualDef | undefined {
   if (!actor) {
     return actor
   }
 
   const variants = Array.isArray(actor.variants) ? actor.variants.map(cloneVariant) : []
-  const lobsterVariant = variants.find((variant) => variant.id === LOBSTER_ACTOR_VARIANT_ID)
-  const baseVariant =
-    variants.find((variant) => variant.id === LEGACY_DEFAULT_ACTOR_VARIANT_ID) ??
-    variants[0] ??
-    null
-
-  if (!lobsterVariant && baseVariant) {
-    variants.unshift({
-      ...cloneVariant(baseVariant),
-      id: LOBSTER_ACTOR_VARIANT_ID,
-      label: LOBSTER_ACTOR_VARIANT_LABEL,
-    })
-  }
+  const nonLobsterVariants = variants.filter((variant) => variant.id !== LOBSTER_ACTOR_VARIANT_ID)
 
   return {
     ...actor,
-    variants,
-    defaultVariantId: variants.some((variant) => variant.id === LOBSTER_ACTOR_VARIANT_ID)
-      ? LOBSTER_ACTOR_VARIANT_ID
-      : actor.defaultVariantId,
+    variants: [createLobsterVariant(), ...nonLobsterVariants],
+    defaultVariantId: LOBSTER_ACTOR_VARIANT_ID,
   }
 }
 
@@ -70,9 +100,6 @@ export function resolveStoredActorVariantPreference(storedVariantId: string | nu
   return storedVariantId
 }
 
-export function getActorVariantTint(variantId: string | null | undefined) {
-  if (variantId === LOBSTER_ACTOR_VARIANT_ID) {
-    return LOBSTER_TINT
-  }
+export function getActorVariantTint(_variantId: string | null | undefined) {
   return null
 }

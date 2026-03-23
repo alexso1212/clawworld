@@ -1,0 +1,166 @@
+{
+  "variant": "lobster-claw",
+  "label": "Lobster-Claw",
+  "frameCanvas": {
+    "width": 128,
+    "height": 128
+  },
+  "actions": [
+    {
+      "id": "stand_back",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/stand_back-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/stand_back-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "stand_front",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/stand_front-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/stand_front-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "rest",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/rest-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/rest-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 10,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "sleep",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/sleep-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/sleep-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 10,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "coffee",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/coffee-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/coffee-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "lie_flat",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/lie_flat-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/lie_flat-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 10,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "walk",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/walk-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/walk-poster.png",
+      "fps": 7,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "work",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/work-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/work-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "read",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/read-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/read-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "idea",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/idea-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/idea-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "repair",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/repair-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/repair-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    },
+    {
+      "id": "error",
+      "spritesheet": "public/assets/generated/actors/lobster-claw-v1/sheets/error-spritesheet.png",
+      "poster": "public/assets/generated/actors/lobster-claw-v1/sheets/error-poster.png",
+      "fps": 6,
+      "sheet": {
+        "frameWidth": 128,
+        "frameHeight": 128,
+        "frameCount": 12,
+        "columns": 4,
+        "rows": 3
+      }
+    }
+  ]
+}
