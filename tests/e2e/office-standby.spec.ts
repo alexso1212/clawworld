@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test('shows the office standby scene with desks, finance room, and wall display', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('/?mode=office')
 
   await expect(page.getByText('CLAWWORLD')).toBeVisible()
   await expect(page.getByText('Task Board')).toBeHidden()

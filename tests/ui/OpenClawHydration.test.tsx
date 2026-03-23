@@ -5,6 +5,8 @@ import type { OpenClawSessionPayload } from '../../src/adapters/openclaw/types'
 import { AppProviders } from '../../src/app/providers'
 
 test('hydrates the office wall display from incoming OpenClaw session events', async () => {
+  window.history.replaceState({}, '', '/?mode=office')
+
   render(
     <AppProviders>
       <App />
@@ -37,4 +39,6 @@ test('hydrates the office wall display from incoming OpenClaw session events', a
     expect(wallDisplay).not.toHaveTextContent('rerouting')
     expect(wallDisplay).not.toHaveTextContent('low')
   })
+
+  window.history.replaceState({}, '', '/')
 })

@@ -76,23 +76,33 @@ function MarkerTag({ marker }: { marker: SceneMarker }) {
 }
 
 type GameShellProps = {
-  displayItems: OnWallDisplayItem[]
+  displayItems?: OnWallDisplayItem[]
   onMarkerSelect?: (markerId: string) => void
-  runtimeSession: ClawworldRuntimeSession
-  sceneView: 'main-office' | 'task-world'
+  runtimeSession?: ClawworldRuntimeSession
+  sceneView: 'library-shell' | 'main-office' | 'task-world'
+  snapshotSeed?: SceneSnapshot
+  selectedRoomId?: string
 }
 
 export function GameShell({
-  displayItems,
+  displayItems = [],
   onMarkerSelect,
   runtimeSession,
   sceneView,
+  snapshotSeed,
+  selectedRoomId,
 }: GameShellProps) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const [bridge] = useState(() => createSceneBridge())
   const [snapshot, setSnapshot] = useState<SceneSnapshot>(() => bridge.getSnapshot())
 
   useEffect(() => bridge.subscribe(setSnapshot), [bridge])
+
+  useEffect(() => {
+    if (snapshotSeed) {
+      bridge.setSnapshot(snapshotSeed)
+    }
+  }, [bridge, snapshotSeed])
 
   useEffect(() => {
     window.render_game_to_text = () => describeSnapshot(snapshot)
@@ -119,7 +129,7 @@ export function GameShell({
         return
       }
 
-      const game = createGame(hostRef.current, bridge, sceneView, runtimeSession)
+      const game = createGame(hostRef.current, bridge, sceneView, runtimeSession, selectedRoomId)
       destroyGame = () => {
         game.destroy(true)
       }
@@ -130,7 +140,7 @@ export function GameShell({
       bridge.resetAdvanceHandler()
       destroyGame?.()
     }
-  }, [bridge, runtimeSession, sceneView])
+  }, [bridge, runtimeSession, sceneView, selectedRoomId])
 
   return (
     <section

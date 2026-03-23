@@ -38,6 +38,16 @@ Completed:
 - Upgraded worker sprites from simple head/body blocks to clearer office-character silhouettes with shadow, role-specific props, and stronger pixel-like outlines
 - Expanded whiteboard, task-board, and room hotspots into object-sized invisible hit areas so furniture can be clicked directly instead of relying on pin-sized placards
 - Reworked the main-office boards, finance/tool area, and task-room furniture into more recognizable pixel-office silhouettes instead of rounded dashboard cards
+- Added a default `ClawLibrary`-style shell and preserved the old office/task-world app behind `?mode=office`
+- Added runtime-aware library shell adapters so the new default archive view reflects current source, route, reserve, tool, and abnormality state
+- Vendored upstream `ClawLibrary` protocol files into `src/library/data/upstream/` and remapped our room topology to the upstream map/work-zone layout
+- Vendored upstream `scene-floor` and `scene-objects` art into `public/clawlibrary/assets/...` and wired the library scene to preload and render those layers
+- Switched the library scene to the upstream 1920x1080 base resolution so actor routes and room hotspots align with the vendored topology
+- Vendored upstream capy/cat walk sprite sheets and replaced the library shell’s placeholder rectangle actors with animated upstream patrol sprites
+- Added upstream idle/work sprite sheets plus patrol hold points so library actors now pause and switch pose instead of looping walk frames forever
+- Added a deploy-safe gateway guard so `?transport=gateway` stays local-only on static hosted demos unless explicitly overridden
+- Added `pixelAtlasManifest` from the existing sprite catalog, which unblocked the old atlas test and brought the full Vitest suite back to green
+- Replaced the Vite starter README with project docs and added baseline GitHub Actions + Vercel config for source-control/deploy readiness
 
 TODO:
 - Route the next major art-direction pass through Gemini Ultra before reworking the task world or any new scene
@@ -49,3 +59,9 @@ TODO:
 - Expand live session hydration beyond the current session-list heuristic layer
 - Add richer task-world details for real sessions (preview, phase inference, per-task drilldown)
 - Reduce Phaser bundle size by splitting heavier scene code
+- Pull more of the real upstream scene-art manifest across, especially actor sprites and any room-slice layers that can replace our temporary overlays
+- Add idle/work actor states from the upstream manifest so patrol sprites can pause and emote instead of always looping the walk cycle
+- Consider exposing actor pose/state in `render_game_to_text` or scene snapshot output so automated runs can assert more than just position
+- Decide whether to expose the upstream `agent` and `mcp` partitions directly instead of continuing to collapse them into our current room vocabulary
+- Map current gateway/live session semantics into the upstream work-zone model instead of just patching card text on top
+- If we want hosted live data later, replace the current local Vite `/api/openclaw/sessions` relay with a real backend or serverless route

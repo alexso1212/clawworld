@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# Clawworld
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Clawworld is a Phaser + React simulation interface for OpenClaw.
 
-Currently, two official plugins are available:
+The current default experience is a `ClawLibrary`-style living pixel archive with upstream-inspired rooms, animated patrol actors, asset previews, and runtime cards. The older office/task-world prototype is still in the repo and can be opened with `?mode=office`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Modes
 
-## React Compiler
+- Default: `ClawLibrary` archive shell
+- Office fallback: `/?mode=office`
+- Local gateway polling: `/?transport=gateway`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+`?transport=gateway` is intentionally local-only. On deployed non-local hosts, the app falls back to mock/demo mode unless `window.__CLAWWORLD_ENABLE_GATEWAY__ = true` is set explicitly.
 
-## Expanding the ESLint configuration
+## Local Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm test
+npm run build
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open `http://127.0.0.1:5173/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Deployment
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+This repo now builds as a static Vite app and is ready for GitHub-hosted source control plus Vercel deployment.
+
+### GitHub
+
+1. Create a new GitHub repository.
+2. Add it as the remote for this repo.
+3. Push `main`.
+
+Example:
+
+```bash
+git remote add origin <your-github-repo-url>
+git push -u origin main
 ```
+
+### Vercel
+
+The repository includes [`vercel.json`](/Users/alex/Clawworld/vercel.json), so Vercel can build it directly:
+
+1. Import the GitHub repository into Vercel.
+2. Keep the default install command (`npm install`).
+3. Keep the default build command (`npm run build`).
+4. Deploy.
+
+This produces a static demo deployment of the archive shell.
+
+## Live OpenClaw Notes
+
+- Browser event hydration still works if a host page injects `window.__CLAWWORLD_BOOT_SESSION__` or dispatches `clawworld:session`.
+- The built-in `/api/openclaw/sessions` relay only exists in local Vite dev/preview, because it shells out to `openclaw gateway call sessions.list`.
+- If you want live hosted gateway mode later, add a real backend or serverless API instead of relying on the local Vite middleware.
+
+## CI
+
+GitHub Actions now runs:
+
+- `npm test`
+- `npm run build`
+
+That gives you a green baseline before wiring up preview deploys.

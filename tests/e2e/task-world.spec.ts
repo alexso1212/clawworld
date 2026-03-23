@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('opens a task world and shows the seven core rooms', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/?mode=office')
   await page.getByRole('button', { name: 'Task Board' }).click()
   await page.mouse.move(8, 8)
 

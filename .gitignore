@@ -12,6 +12,7 @@ dist
 dist-ssr
 output
 test-results
+.vercel
 *.local
 
 # Editor directories and files

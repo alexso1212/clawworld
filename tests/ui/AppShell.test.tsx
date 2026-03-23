@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import App from '../../src/App'
 
-test('renders the Clawworld office shell', () => {
+test('renders the ClawLibrary shell by default', () => {
   render(<App />)
 
-  expect(screen.getByText('Clawworld')).toBeInTheDocument()
+  expect(screen.getByText('ClawLibrary')).toBeInTheDocument()
   expect(screen.getByTestId('scene-host')).toBeInTheDocument()
-  expect(screen.getByTestId('overlay-root')).toBeInTheDocument()
+  expect(screen.getByLabelText('Library room details')).toBeInTheDocument()
 })

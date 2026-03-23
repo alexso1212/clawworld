@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('shows infrastructure warnings and opens a triage card', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/?mode=office')
 
   await expect(page.getByText('Finance Warning')).toHaveCount(0)
   await expect(page.getByText('Bridge Route')).toHaveCount(0)

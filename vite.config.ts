@@ -51,6 +51,7 @@ function openClawGatewayRelay() {
 }
 
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH || '/',
   plugins: [react(), openClawGatewayRelay()],
   test: {
     environment: 'jsdom',
