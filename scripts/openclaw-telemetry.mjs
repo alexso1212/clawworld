@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { clawlibraryConfig } from './clawlibrary-config.mjs';
+import { dedupeSkillItems, describeSkillRoots, resolveSkillRoots } from './openclaw-skill-roots.mjs';
 
 const OPENCLAW_ROOT = clawlibraryConfig.openclaw.home;
 const WORKSPACE_ROOT = clawlibraryConfig.openclaw.workspace;
@@ -1742,10 +1743,27 @@ async function buildLiveResources({ itemResourceIds = null, includeExcerpt = tru
       ...LOW_SIGNAL_PATTERNS.map((pattern) => [pattern, -4])
     ]), WORKSPACE_RESOURCE_ITEM_LIMIT, { includeExcerpt })
     : [];
-  const rawSkillItems = await collectSkillEntries([
-    WORKSPACE_ROOT,
-    path.join(OPENCLAW_ROOT, 'skills')
-  ], WORKSPACE_RESOURCE_ITEM_LIMIT);
+  const skillRoots = resolveSkillRoots({
+    openclawHome: OPENCLAW_ROOT,
+    workspaceRoot: WORKSPACE_ROOT,
+  });
+  const userHome = path.dirname(OPENCLAW_ROOT);
+  const codexHome = process.env.CODEX_HOME || path.join(userHome, '.codex');
+  const skillsSourceLabel = describeSkillRoots(skillRoots, {
+    homeDir: userHome,
+    openclawHome: OPENCLAW_ROOT,
+    workspaceRoot: WORKSPACE_ROOT,
+    codexHome,
+  });
+  const rawSkillItems = dedupeSkillItems(
+    await collectSkillEntries(skillRoots, WORKSPACE_RESOURCE_ITEM_LIMIT),
+    [
+      path.join(userHome, '.agents', 'skills'),
+      path.join(codexHome, 'skills'),
+      path.join(OPENCLAW_ROOT, 'skills'),
+      WORKSPACE_ROOT,
+    ]
+  );
   const skillItems = shouldIncludeItemsFor('skills')
     ? prioritizeItems(rawSkillItems, [
       'skills/',
@@ -2180,7 +2198,7 @@ async function buildLiveResources({ itemResourceIds = null, includeExcerpt = tru
       summary: `${skillsScan.itemCount} discovered skills`,
       detail: recentSkillInvocation?.detail
         ?? (skillsScan.latestPath ? `latest ${skillsScan.latestPath}` : 'no skill activity'),
-      source: RESOURCE_META.skills.source,
+      source: skillsSourceLabel,
       items: skillItems
     },
     {
