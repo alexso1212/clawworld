@@ -57,6 +57,7 @@ Completed:
 - Added a runtime-generated `lobster-claw` actor variant on top of the existing sprite pipeline, migrated old default capy preferences toward the new lobster default, and tinted the active actors so the current hosted scene reads more like our own lobster crew instead of only upstream capy/cat placeholders
 - Replaced the tint-only lobster placeholder with a real generated `lobster-claw-v1` sprite pack, wired the runtime lobster variant to those standalone sheets, and kept the hosted/base-path asset remapping intact so local and GitHub Pages builds both load the new lobster art
 - Expanded live OpenClaw skill discovery beyond `.openclaw/skills` so the local telemetry pipeline now scans `.codex/skills`, `.agents/skills`, and workspace roots together, dedupes duplicate installs, and surfaces the real installed skill count in the `skills` room
+- Added explicit runtime-mode chrome for the upstream game HUD so local real-data sessions now show `LIVE LOCAL`, local `?mock=1` sessions show `FORCED MOCK`, and the static hosted demo path can be labeled as `STATIC MOCK` instead of looking like a live OpenClaw connection
 
 TODO:
 - Decide how much of the old `office/task-world` prototype survives as optional legacy routes versus being retired outright
@@ -64,6 +65,7 @@ TODO:
 - Reintroduce Clawworld-specific product language and interactions on top of the upstream game without re-splitting the app into a React shell plus Phaser shell hybrid
 - Add a hosted-safe live data path later if we want public demos to show real OpenClaw state instead of the baked mock snapshot
 - Make the UI more explicit about `live` versus `mock` mode so hosted Pages demos cannot be mistaken for a local real-data session
+- Consider adding a tiny inline help affordance near the runtime-mode stamp so users can see why hosted Pages stays mock-backed and how to launch the local live route
 - Extend the current demo adapter beyond HUD/menu text so more of the scene art itself carries Clawworld state, not just room status colors and focus routing
 - Polish the first-pass `lobster-claw-v1` sprite pack with richer silhouettes and higher-fidelity work/rest poses now that the runtime is no longer tied to capy-derived placeholder art
 - Reduce the first-load art pack weight or add a lightweight preview layer so hosted demos become visible faster even before all large textures are cached

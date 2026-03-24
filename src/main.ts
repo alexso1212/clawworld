@@ -11,6 +11,7 @@ import {
   getActorVariantChromeLabel,
   resolveStoredActorVariantPreference,
 } from './runtime/systems/actorVariantChrome';
+import { describeRuntimeModeChrome } from './runtime/systems/runtimeModeChrome';
 import { shouldUseStaticMockData } from './runtime/systems/appRuntime';
 import {
   createStageLoadingOverlay,
@@ -2140,16 +2141,8 @@ function applyLocaleToChrome(): void {
   if (hudTitleMain) {
     hudTitleMain.textContent = uiText('title', uiLocale);
   }
-  if (hudTitleSub) {
-    hudTitleSub.textContent = uiLocale === 'zh'
-      ? '面向 OpenClaw 生成资产与运行流的像素游戏风档案馆。'
-      : "A pixel-game archive for OpenClaw's generated assets and runtime flows.";
-  }
   if (hudActivityTitle) {
     hudActivityTitle.textContent = uiText('recentActivity', uiLocale);
-  }
-  if (menuPanelStamp) {
-    menuPanelStamp.textContent = uiText('archiveLive', uiLocale);
   }
   if (menuPanelSub) {
     menuPanelSub.textContent = uiText('quickRooms', uiLocale);
@@ -2181,9 +2174,26 @@ function applyLocaleToChrome(): void {
     previewModalClose.textContent = uiText('close', uiLocale);
   }
   applyInfoPanelVisibility();
+  renderRuntimeModeChrome();
   renderHudStats();
   renderRecentActivity();
   renderPreviewModal();
+}
+
+function renderRuntimeModeChrome(): void {
+  const chrome = describeRuntimeModeChrome({
+    locale: uiLocale,
+    useStaticMockData,
+    forceMock,
+    snapshotMode: lastSnapshot?.mode,
+  })
+
+  if (hudTitleSub) {
+    hudTitleSub.textContent = chrome.subtitle
+  }
+  if (menuPanelStamp) {
+    menuPanelStamp.textContent = chrome.stamp
+  }
 }
 
 function isTypingTarget(target: EventTarget | null): boolean {
@@ -2926,6 +2936,7 @@ async function refreshTelemetry(): Promise<void> {
     const activeScene = getActiveScene();
     activeScene?.applyTelemetrySnapshot(lastSnapshot);
     ensureSceneBindings();
+    renderRuntimeModeChrome();
     syncResourceControls();
     renderRoomModal();
     return;
@@ -2943,6 +2954,7 @@ async function refreshTelemetry(): Promise<void> {
     const activeScene = getActiveScene();
     activeScene?.applyTelemetrySnapshot(lastSnapshot);
     ensureSceneBindings();
+    renderRuntimeModeChrome();
     syncResourceControls();
     renderRoomModal();
   } catch (error) {
